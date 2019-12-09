@@ -13,11 +13,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-
 import androidx.appcompat.app.AlertDialog;
-
 import com.zlb.httplib.R;
-
 
 /**
  * BaseWebViewActivity

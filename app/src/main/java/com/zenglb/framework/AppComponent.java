@@ -32,7 +32,6 @@ import dagger.android.support.AndroidSupportInjectionModule;
         BaseAllViewModelModule.class,   //ViewModel 的依赖注入
 
 
-
         //下面的是ABCD 等Module 的Activity 需要依赖注入的ActivityModule 配置。
         //在gradle.properties 文件中关闭模块化开发模式才能成功引入
         MainModuleAllActivityModule.class, //减少模版代码,需要依赖注入的只需要添加两行代码就好了

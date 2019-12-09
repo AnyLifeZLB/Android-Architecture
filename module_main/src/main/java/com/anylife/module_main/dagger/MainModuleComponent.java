@@ -25,7 +25,7 @@ import dagger.android.AndroidInjectionModule;
         MainModuleAllActivityModule.class,  //减少模版代码,需要依赖注入的只需要添加两行代码就好了
 
         //可以再加一个MainModule 的单独的全局Module的对象提供者
-        MainGlobalModule.class,
+        MainGlobalModule.class    //z
 
 })
 
