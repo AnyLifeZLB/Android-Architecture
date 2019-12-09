@@ -9,24 +9,22 @@ import com.zlb.commontips.LoadingCallback;
 import com.zlb.commontips.TimeoutCallback;
 import com.zlb.dagger.module.BaseGlobalModule;
 
-import dagger.android.AndroidInjector;
-
 /**
  * https://easy-mock.com/login
  * MockData   anylife.zlb   mockdata
- *
+ * <p>
  * 组件化开发模式 集成打包的壳工程的Application，其他组件Module模块工程在开发的时候配置Debug目录中的Application
- *
+ * <p>
  * 在集成打包的时候其他组件Module模块工程下的Debug 目录下的 XXApplication 都配置会被expect
- *
- *
+ * <p>
+ * <p>
  * 每个Module 中的Application的初始化在集成模式中也应该在这里一起初始化
- *
- *
+ * <p>
+ * <p>
  * 参考{@link dagger.android.DaggerApplication}Beta 项目，项目组没有3个以上的Android 开发不建议引入Dagger
  * Created by anylife.zlb@gmail.com on 2017/3/15.
  */
-public class AppApplication extends BaseApplication  {
+public class AppApplication extends BaseApplication {
     public static final String TAG = AppApplication.class.getSimpleName();
     public static final String MAIN_PROCESS_NAME = "com.zenglb.framework";
     public static final String WEB_PROCESS_NAME = "com.zenglb.framework:webprocess";
@@ -70,7 +68,6 @@ public class AppApplication extends BaseApplication  {
 //    }
 
 
-
 //    /**
 //     * 各个子模块的数据初始化
 //     *
@@ -92,7 +89,6 @@ public class AppApplication extends BaseApplication  {
 //            }
 //        }
 //    }
-
 
 
     /**

@@ -1,7 +1,6 @@
 package com.anylife.module_main.dagger;
 
 import androidx.lifecycle.ViewModel;
-
 import com.anylife.module_main.ModuleMainLauncherActivity;
 import com.anylife.module_main.blog.viewmodel.BlogViewModel;
 import com.anylife.module_main.business.login.LoginActivity;
@@ -10,12 +9,10 @@ import com.anylife.module_main.business.navigation.MainActivityBottomNavi;
 import com.anylife.module_main.business.navigation.fragment.MeFragment;
 import com.anylife.module_main.business.navigation.fragment.NewsFragmentShell;
 import com.anylife.module_main.blog.ui.BlogListFragment;
-import com.zlb.dagger.viewmodel.MyViewModelFactory;
 import com.zlb.dagger.viewmodel.ViewModelKey;
 import com.zlb.dagger.component.BaseActivityComponent;
 import com.zlb.dagger.module.DefaultActivityModule;
 import com.zlb.dagger.scope.ActivityScope;
-
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -34,12 +31,13 @@ import dagger.multibindings.IntoMap;
  * 3.每个Activity所单独需要的依赖，依然由各自的Module进行管理和实例化，依然没有任何耦合
  */
 @Module(subcomponents = {
-        BaseActivityComponent.class   //1111111111 subComponent=BaseActivityComponent
+        BaseActivityComponent.class   //1. subComponent=BaseActivityComponent
 })
 public abstract class MainModuleAllActivityModule {
-    //2222222 新建了一个Activity 的并且需要inject 的只需要添加两行代码 DefaultActivityModule 适用于只要全局Module 中的内容
+    //2. 新建了一个Activity 的并且需要inject 的只需要添加两行代码 DefaultActivityModule 适用于只要全局Module 中的内容
 
-    //要是能不声明就更好了，有点像Manifest 中的配置文件
+    //3.要是能不声明就更好了，只要加个注解能搞定那就太棒了，哈哈哈
+
     @ActivityScope
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
     abstract ModuleMainLauncherActivity moduleMainLauncherActivity();
@@ -53,21 +51,25 @@ public abstract class MainModuleAllActivityModule {
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
     abstract LoginActivity loginActivityInjector();
 
+
     @ActivityScope
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
     abstract MainFragment mainFragmentInjector();
 
+
     @ActivityScope
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
     abstract MeFragment meFragmentInjector();
+
 
     @ActivityScope
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
     abstract NewsFragmentShell meFragmentxxInjector();
 
 
+
     /**
-     *
+     * 博客
      *
      * @return
      */
@@ -80,6 +82,7 @@ public abstract class MainModuleAllActivityModule {
     @IntoMap
     @ViewModelKey(BlogViewModel.class)
     abstract ViewModel bindBlogViewModel(BlogViewModel blogViewModel);
+
 
 
 
