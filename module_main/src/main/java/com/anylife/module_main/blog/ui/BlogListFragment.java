@@ -3,9 +3,9 @@ package com.anylife.module_main.blog.ui;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,18 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.anylife.module_main.R;
-import com.zlb.dagger.viewmodel.MyViewModelFactory;
-import com.zlb.statelivedata.StateData;
-import com.zlb.commontips.TimeoutCallback;
-import com.zlb.persistence.entity.Blog;
+import com.anylife.module_main.blog.viewmodel.Blog2ViewModel;
 import com.anylife.module_main.blog.viewmodel.BlogViewModel;
 import com.zlb.Sp.SPDao;
 import com.zlb.base.BaseStatusFragment;
+import com.zlb.commontips.TimeoutCallback;
 import com.zlb.dagger.scope.ActivityScope;
+import com.zlb.dagger.viewmodel.MyViewModelFactory;
+import com.zlb.persistence.entity.Blog;
+import com.zlb.statelivedata.StateData;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,21 +68,53 @@ public class BlogListFragment extends BaseStatusFragment {
 //        blogViewModel = ViewModelProviders.of(this).get(BlogViewModel.class);
 
         //use Dagger
-        blogViewModel = ViewModelProviders.of(this, viewModelFactory).get(BlogViewModel.class);
+//        blogViewModel = ViewModelProviders.of(this, viewModelFactory).get(BlogViewModel.class);
 
 
         //ViewModel 最终消亡是在 Activity 被销毁的时候，会执行它的onCleared()进行数据的清理。
         //去获取博客数据
-        getPopularBlog();
+//        getPopularBlog();
+
+        Blog2ViewModel viewModel = ViewModelProviders.of(this).get(Blog2ViewModel.class);
+        viewModel.getShowLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    Toasty.info(getActivity(), "开始加载").show();
+                } else {
+                    Toasty.info(getActivity(), "加载完毕").show();
+                    swipeRefresh.setRefreshing(false);
+                }
+            }
+        });
+
+        viewModel.getShowErrMsg().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Toasty.error(getActivity(), s).show();
+            }
+        });
+
+        viewModel.getBlogLiveData().observe(this, new Observer<List<Blog>>() {
+            @Override
+            public void onChanged(List<Blog> blogs) {
+                prepareRecyclerView(blogs);
+            }
+        });
+
 
         // 数据刷新获取数据
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //刷新数据
-                blogViewModel.getAllBlog();
+//                blogViewModel.getAllBlog();
+                viewModel.loadData();
             }
         });
+
+
+        viewModel.loadData();
 
     }
 
@@ -97,7 +132,6 @@ public class BlogListFragment extends BaseStatusFragment {
 
     /**
      * 去获取数据
-     *
      */
     public void getPopularBlog() {
         swipeRefresh.setRefreshing(true);
@@ -119,7 +153,7 @@ public class BlogListFragment extends BaseStatusFragment {
                         break;
                     case LOADING:
 
-                        Log.e("TTT","显示Loading UI ");
+                        Log.e("TTT", "显示Loading UI ");
 
                         break;
                 }
