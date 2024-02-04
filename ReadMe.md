@@ -2,7 +2,7 @@
 # Android 网络请求封装总结
 
 Android Http 网络请求封装，使用 Kotlin+Moshi+Coroutines+retrofit等封装处理Http请求，支持多个域名多态数据返回。封装要达到的目的特性就一个：简洁的同步代码风格处理网络异步请求！  
-GitHub 封装演示代码(*请切换到NetWork分支*)：https://github.com/AnyLifeZLB/Android-Architecture
+GitHub 封装演示代码：https://github.com/AnyLifeZLB/Android-Architecture
 
 
 为什么要使用以下技术栈：
@@ -143,7 +143,8 @@ viewModelScope.launch {
 - Retrofit 2.0源码分析 https://www.jianshu.com/p/0c055ad46b6c
 - 从架构角度看Retrofit  https://www.jianshu.com/p/f57b7cdb1c99
     
-  感谢以下Api 提供方，祝你们长青永存
+
+## 感谢以下Api 提供方，如果失效请查看官网进行替换
 * https://api.europeana.eu/record/v2/search.json
 * https://fakerapi.it/en  
 * https://www.wanandroid.com     
