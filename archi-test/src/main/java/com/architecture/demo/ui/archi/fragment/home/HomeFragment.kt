@@ -13,7 +13,7 @@ import com.architecture.demo.databinding.FragmentHomeBinding
 import com.architecture.httplib.utils.MoshiUtils
 
 /**
- * 使用FakeApi的数据进行演示
+ * 使用FakeApi的数据 进行演示
  *
  */
 class HomeFragment : Fragment() {
