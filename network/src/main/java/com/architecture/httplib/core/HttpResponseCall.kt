@@ -59,10 +59,8 @@ internal class HttpResponseCall<S : Any>(
                 val code = response.code()
                 val error = response.errorBody()
 
-
                 //Http 返回[200..300).
                 if (response.isSuccessful) {
-
                     if (data != null) {
                         callback.onResponse(
                             this@HttpResponseCall,
@@ -79,7 +77,6 @@ internal class HttpResponseCall<S : Any>(
                             this@HttpResponseCall,
                             Response.success(HttpResult.Failure("response body is null",-1))
                         )
-
                     }
                 } else {
                     //这是[4xx, 5xx] 的错误信息，这种也是Http 有返回比较具体的错误 （如果是异常就是直接onFailed了））
@@ -94,7 +91,7 @@ internal class HttpResponseCall<S : Any>(
                                 BusinessBaseResponse::class.java
                             )
 
-                        // ????????? 压测一遍
+                        // ?????????  压测一遍
                         errorConverter?.onFailure(
                             BusinessException(
                                 errorResponse?.code ?: -1,
@@ -169,7 +166,7 @@ internal class HttpResponseCall<S : Any>(
                         HttpResult.Failure(throwable.message ?: "", throwable.code)
                     }
 
-                    //尽量拓展完整一点
+                    //尽量拓展完整一点，各种细节hold 完善一点，不要大部分都是unknow error
                     else -> {
                         HttpResult.Failure(throwable.message ?: "unknow error",-2)
                     }
@@ -181,7 +178,6 @@ internal class HttpResponseCall<S : Any>(
                     Response.success(networkResponse)
                 )
             }
-
 
         })
     }

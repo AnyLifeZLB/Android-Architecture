@@ -23,6 +23,9 @@ class NaviActivity : ComponentActivity() {
         }
 
 
-
     }
+
+
+
+
 }
