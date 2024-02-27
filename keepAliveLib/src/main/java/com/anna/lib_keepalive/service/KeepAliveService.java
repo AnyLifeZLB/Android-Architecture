@@ -12,9 +12,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
-import com.anna.lib_keepalive.forground.ForgroundNF;
-import com.anna.lib_keepalive.utils.PhoneUtils;
-import com.anna.lib_keepalive.utils.Utils;
+import com.anna.lib_keepalive.forground.ForegroundNF;
+import com.anna.lib_keepalive.utils.KeepAliveSettingUtils;
+import com.anna.lib_keepalive.utils.BatteryUtils;
 
 /**
  * 创建一个JobService用于提高应用优先级
@@ -34,7 +34,7 @@ public class KeepAliveService extends JobService {
     private JobScheduler mJobScheduler;
     private ComponentName JOB_PG;
     private int NOTIFICATION_ID = 10;
-    private ForgroundNF mForgroundNF;
+    private ForegroundNF mForgroundNF;
     private static AliveStrategy strategy;
 
     /**
@@ -48,21 +48,20 @@ public class KeepAliveService extends JobService {
         ALL
     }
 
-    private Handler mJobHandler = new Handler(new Handler.Callback() {
-
-        @Override
-        public boolean handleMessage(Message msg) {
-            Log.d(TAG, "pull alive.");
-            jobFinished((JobParameters) msg.obj, true);
-            return true;
-        }
+    private Handler mJobHandler = new Handler(msg -> {
+        Log.d(TAG, "pull alive.");
+        jobFinished((JobParameters) msg.obj, true);
+        return true;
     });
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
         mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         JOB_PG = new ComponentName(getPackageName(),KeepAliveService.class.getName());
-        mForgroundNF = new ForgroundNF(this);
+        mForgroundNF = new ForegroundNF(this);
         initStrategy();
     }
 
@@ -117,19 +116,21 @@ public class KeepAliveService extends JobService {
         return super.onStartCommand(intent,flags,startId);
     }
 
-    /**获取启动策略
+    /**
+     * 获取启动策略
+     *
      */
     private void initStrategy() {
         if(strategy == AliveStrategy.NONE || strategy == AliveStrategy.JOB_SERVICE){
             return;
         }
         if(strategy == AliveStrategy.BATTERYOPTIMIZATION){
-            Utils.requestIgnoreBatteryOptimizations(this);
+            BatteryUtils.requestIgnoreBatteryOptimizations(this);
         }else if (strategy == AliveStrategy.RESTARTACTION){
-            PhoneUtils.setReStartAction(this);
+            KeepAliveSettingUtils.setReStartAction(this);
         }else {
-            Utils.requestIgnoreBatteryOptimizations(this);
-            PhoneUtils.setReStartAction(this);
+            BatteryUtils.requestIgnoreBatteryOptimizations(this);
+            KeepAliveSettingUtils.setReStartAction(this);
         }
     }
 
@@ -148,6 +149,7 @@ public class KeepAliveService extends JobService {
 
     /**
      * 初始化Job任务
+     *
      * @return
      */
     private JobInfo initJob() {

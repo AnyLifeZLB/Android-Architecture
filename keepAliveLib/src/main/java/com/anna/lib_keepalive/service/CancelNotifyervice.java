@@ -7,14 +7,14 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.anna.lib_keepalive.forground.ForgroundNF;
+import com.anna.lib_keepalive.forground.ForegroundNF;
 
 /**
  * 保活设置：
  *
  */
 public class CancelNotifyervice extends Service {
-    ForgroundNF _mForgroundNF;
+    ForegroundNF _mForgroundNF;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -25,7 +25,7 @@ public class CancelNotifyervice extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d("TAG","onCreate--");
-        _mForgroundNF = new ForgroundNF(this);
+        _mForgroundNF = new ForegroundNF(this);
     }
 
     @Override

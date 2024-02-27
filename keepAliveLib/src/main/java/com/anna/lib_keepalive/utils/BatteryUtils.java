@@ -7,15 +7,14 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
 
-import androidx.annotation.RequiresApi;
-
 /**
  * 判断应用是否在白名单中，并且能调整到系统基本的设置里面去
  */
-public class Utils {
+public class BatteryUtils {
 
     /**
      * 判断是否在电池优化的白名单中
+     *
      * @param context
      * @return
      */
@@ -28,7 +27,6 @@ public class Utils {
             }
         }
         return isIgnore;
-
     }
 
     /**
@@ -49,7 +47,5 @@ public class Utils {
             e.printStackTrace();
         }
     }
-
-
 
 }

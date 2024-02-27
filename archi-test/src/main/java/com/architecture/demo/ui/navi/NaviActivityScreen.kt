@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.architecture.demo.ui.archi.MainActivity
+import com.architecture.demo.ui.keepalive.KeepAliveSettingActivity
 
 /**
  * Compose 编程
@@ -37,6 +38,16 @@ fun MainActivityScreen(viewModel: NaviActivityScreenViewModel) {
         }, modifier = Modifier.padding(20.dp).fillMaxWidth()){
             Text(text = "App架构重构", fontSize = 16.sp, color = Color.Green)
         }
+
+
+        //应用保活设置
+        Button(onClick = {
+            val intent = Intent(context, KeepAliveSettingActivity::class.java)
+            context.startActivity(intent)
+        }, modifier = Modifier.padding(20.dp).fillMaxWidth()){
+            Text(text = "应用保活权限设置", fontSize = 16.sp, color = Color.Green)
+        }
+
 
 
         Button(onClick = {

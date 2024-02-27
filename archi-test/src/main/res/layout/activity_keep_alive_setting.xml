@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.keepalive.KeepAliveSettingActivity">
+
+
+    <TextView
+        android:id="@+id/keep_alive_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@color/light_grey"
+        android:text="@string/keep_alive_tips"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/keep_alive_tips_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="11dp"
+        android:paddingBottom="4dp"
+        android:text="@string/keep_alive_tips2"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips" />
+
+    <TextView
+        android:id="@+id/keep_alive_tips_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="11dp"
+        android:paddingBottom="15dp"
+        android:text="@string/keep_alive_tips3"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips_2" />
+
+
+    <TextView
+        android:id="@+id/keep_alive_tips_battery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp"
+        android:text="@string/keep_alive_tips_battery"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips_3" />
+
+
+    <TextView
+        android:id="@+id/keep_alive_tips_battery_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/go_setting"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:background="@drawable/shape_btn_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/keep_alive_tips_battery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/keep_alive_tips_battery" />
+
+
+
+    <TextView
+        android:id="@+id/keep_alive_tips_battery_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="11dp"
+        android:paddingBottom="15dp"
+        android:text="@string/keep_alive_tips_battery_sub"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips_battery" />
+
+
+    <TextView
+        android:id="@+id/keep_alive_tips_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp"
+        android:text="@string/keep_alive_tips_background"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips_battery_sub" />
+
+    <TextView
+        android:id="@+id/keep_alive_tips_background_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/go_setting"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:background="@drawable/shape_btn_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/keep_alive_tips_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/keep_alive_tips_background" />
+
+    <TextView
+        android:id="@+id/keep_alive_tips_background_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="11dp"
+        android:paddingBottom="15dp"
+        android:text="@string/keep_alive_tips_background_sub"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips_background" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

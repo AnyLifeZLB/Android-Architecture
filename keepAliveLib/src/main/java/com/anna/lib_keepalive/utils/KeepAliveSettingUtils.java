@@ -12,8 +12,7 @@ import androidx.annotation.NonNull;
  * 先兼容小米 华为 一加手机
  *
  */
-public class PhoneUtils {
-
+public class KeepAliveSettingUtils {
 
     /**
      * 跳转到指定应用的首页
@@ -33,6 +32,11 @@ public class PhoneUtils {
         context.startActivity(intent);
     }
 
+    /**
+     * 针对不同的手机匹配不同的设置，主要是兼容性很难处理
+     *
+     * @param context
+     */
     public static void setReStartAction(Context context){
         if (isHuawei()){
             goHuaweiSetting(context);
@@ -57,11 +61,13 @@ public class PhoneUtils {
             return Build.BRAND.toLowerCase().equals("huawei") || Build.BRAND.toLowerCase().equals("honor");
         }
     }
+
     //小米
     public static boolean isXiaomi() {
         return Build.BRAND != null && Build.BRAND.toLowerCase().equals("xiaomi");
     }
-   // OPPO
+
+    // OPPO
     public static boolean isOPPO() {
         return Build.BRAND != null && Build.BRAND.toLowerCase().equals("oppo");
     }
@@ -70,17 +76,19 @@ public class PhoneUtils {
     public static boolean isVIVO() {
         return Build.BRAND != null && Build.BRAND.toLowerCase().equals("vivo");
     }
+
     //魅族
     public static boolean isMeizu() {
         return Build.BRAND != null && Build.BRAND.toLowerCase().equals("meizu");
     }
-   // 三星
+
+    // 三星
     public static boolean isSamsung() {
         return Build.BRAND != null && Build.BRAND.toLowerCase().equals("samsung");
     }
 
    // 手机管家或者自启动界面启动方式：
-   /// 华为：
+   // 华为：
     private static void goHuaweiSetting(Context context) {
         try {
             showActivity(context,"com.huawei.systemmanager",
@@ -90,6 +98,7 @@ public class PhoneUtils {
                     "com.huawei.systemmanager.optimize.bootstart.BootStartActivity");
         }
     }
+
    // 小米：
 
     private static void goXiaomiSetting(Context context) {
@@ -113,6 +122,7 @@ public class PhoneUtils {
             }
         }
     }
+
     //VIVO
     public static void goVIVOSetting(Context context) {
         showActivity(context,"com.iqoo.secure");

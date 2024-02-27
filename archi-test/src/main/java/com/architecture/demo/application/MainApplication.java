@@ -26,14 +26,6 @@ public class MainApplication extends Application {
         //初始化的时候要传入的参数
         BaseHttpApiService.Companion.init(new HttpBaseInfo(this));
 
-        //KeepAliveService
-//        startService(new Intent(this, KeepAliveService.class ));
-        Log.e("Main","------------------------ isIgnoringBatteryOptimizations:"+isIgnoringBatteryOptimizations());
-
-        if(!isIgnoringBatteryOptimizations()){
-            requestIgnoreBatteryOptimizations();
-        }
-
     }
 
 

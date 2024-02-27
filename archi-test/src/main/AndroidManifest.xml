@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Network">
         <activity
+            android:name=".ui.keepalive.KeepAliveSettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.archi.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_demo" />
