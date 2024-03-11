@@ -1,4 +1,4 @@
-package com.anna.lib_keepalive.service;
+package com.anylife.keepalive.service;
 
 import android.app.job.JobInfo;
 import android.app.job.JobParameters;
@@ -12,9 +12,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
-import com.anna.lib_keepalive.forground.ForegroundNF;
-import com.anna.lib_keepalive.utils.KeepAliveSettingUtils;
-import com.anna.lib_keepalive.utils.BatteryUtils;
+import com.anylife.keepalive.forground.ForegroundNF;
+import com.anylife.keepalive.utils.KeepAliveSettingUtils;
+import com.anylife.keepalive.utils.BatteryUtils;
 
 /**
  * 创建一个JobService用于提高应用优先级
@@ -142,7 +142,7 @@ public class KeepAliveService extends JobService {
             mForgroundNF.startForegroundNotification();
         }else{
             mForgroundNF.startForegroundNotification();
-            Intent it = new Intent(this, CancelNotifyervice.class);
+            Intent it = new Intent(this, CancelNotifyService.class);
             startService(it);
         }
     }
@@ -158,7 +158,7 @@ public class KeepAliveService extends JobService {
             builder.setMinimumLatency(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS);    //执行的最小延迟时间
             builder.setOverrideDeadline(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS);  //执行的最长延时时间
             builder.setBackoffCriteria(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS,
-                    JobInfo.BACKOFF_POLICY_LINEAR);//线性重试方案
+                    JobInfo.BACKOFF_POLICY_LINEAR);     //线性重试方案
         }else {
             builder.setPeriodic(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS);
         }

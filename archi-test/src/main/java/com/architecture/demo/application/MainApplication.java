@@ -7,11 +7,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.anna.lib_keepalive.service.KeepAliveService;
 import com.architecture.demo.http.HttpBaseInfo;
 import com.architecture.httplib.base.BaseHttpApiService;
 

@@ -1,4 +1,4 @@
-package com.anna.lib_keepalive.service;
+package com.anylife.keepalive.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -7,14 +7,14 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.anna.lib_keepalive.forground.ForegroundNF;
+import com.anylife.keepalive.forground.ForegroundNF;
 
 /**
- * 保活设置：
+ * 保活设置，取消Service，应该没有毕业，正规app 都可以通知栏长驻通知
  *
  */
-public class CancelNotifyervice extends Service {
-    ForegroundNF _mForgroundNF;
+public class CancelNotifyService extends Service {
+    ForegroundNF _mForegroundNF;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -25,13 +25,13 @@ public class CancelNotifyervice extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d("TAG","onCreate--");
-        _mForgroundNF = new ForegroundNF(this);
+        _mForegroundNF = new ForegroundNF(this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("TAG","onStartCommand--");
-        _mForgroundNF.startForegroundNotification();
+        _mForegroundNF.startForegroundNotification();
         stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -40,7 +40,7 @@ public class CancelNotifyervice extends Service {
     public void onDestroy() {
         Log.d("TAG","onDestroy--");
         super.onDestroy();
-        _mForgroundNF.stopForegroundNotification();
+        _mForegroundNF.stopForegroundNotification();
     }
 }
 

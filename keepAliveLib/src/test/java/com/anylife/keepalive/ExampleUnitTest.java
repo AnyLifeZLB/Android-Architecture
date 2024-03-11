@@ -1,4 +1,4 @@
-package com.anna.lib_keepalive;
+package com.anylife.keepalive;
 
 import org.junit.Test;
 

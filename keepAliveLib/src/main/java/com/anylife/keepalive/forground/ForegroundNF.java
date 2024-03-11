@@ -1,4 +1,4 @@
-package com.anna.lib_keepalive.forground;
+package com.anylife.keepalive.forground;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -7,7 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.os.Build;
 import androidx.core.app.NotificationCompat;
-import com.anna.lib_keepalive.R;
+import com.anylife.keepalive.R;
 
 public class ForegroundNF {
     private static final int START_ID = 101;

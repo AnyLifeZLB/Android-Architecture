@@ -68,6 +68,7 @@ dependencies {
     // Integration with activities
     implementation 'androidx.activity:activity-compose:1.3.0'
 
+
     // Compose Material Design
     implementation 'androidx.compose.material:material:1.1.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'

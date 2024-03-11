@@ -1,4 +1,4 @@
-package com.anna.lib_keepalive.utils;
+package com.anylife.keepalive.utils;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -24,6 +24,7 @@ public class KeepAliveSettingUtils {
 
     /**
      * 跳转到指定应用的指定页面
+     *
      */
     private static void showActivity(Context context,@NonNull String packageName, @NonNull String activityDir) {
         Intent intent = new Intent();
@@ -51,9 +52,10 @@ public class KeepAliveSettingUtils {
         }else if(isVIVO()){
             goVIVOSetting(context);
         }
-
     }
-    //华为：
+
+
+    //华为：可能要分化为华为和荣耀了
     public static boolean isHuawei() {
         if (Build.BRAND == null) {
             return false;
@@ -99,12 +101,13 @@ public class KeepAliveSettingUtils {
         }
     }
 
-   // 小米：
 
+   // 小米：
     private static void goXiaomiSetting(Context context) {
         showActivity(context,"com.miui.securitycenter",
                 "com.miui.permcenter.autostart.AutoStartManagementActivity");
     }
+
 
     //OPPO：
     private  static void goOPPOSetting(Context context) {
@@ -123,14 +126,19 @@ public class KeepAliveSettingUtils {
         }
     }
 
+
     //VIVO
     public static void goVIVOSetting(Context context) {
         showActivity(context,"com.iqoo.secure");
     }
+
+
     //魅族
     private static void goMeizuSetting(Context context) {
         showActivity(context,"com.meizu.safe");
     }
+
+
     //三星
     private static void goSamsungSetting(Context context) {
         try {
