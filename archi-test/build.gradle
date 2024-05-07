@@ -48,6 +48,8 @@ android {
 
 dependencies {
 
+    implementation project(":antiDebug")
+
     implementation project(":keepAliveLib")
 
     implementation project(":network")

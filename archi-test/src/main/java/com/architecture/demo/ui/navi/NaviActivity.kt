@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
+import com.anylife.antidebug.AntiDebugInterface.checkDebug
 import com.anylife.keepalive.service.KeepAliveService
 import com.anylife.keepalive.utils.BatteryUtils
 import com.anylife.keepalive.utils.BatteryUtils.addWhiteList
@@ -28,6 +29,9 @@ class NaviActivity : ComponentActivity() {
         setContent {
             MainActivityScreen(naviActivityScreenViewModel)
         }
+
+
+        checkDebug()
 
 
         //KeepAliveService，这里不要设置东西

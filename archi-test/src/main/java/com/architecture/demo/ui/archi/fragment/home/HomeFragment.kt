@@ -59,8 +59,9 @@ class HomeFragment : Fragment() {
 
                     StateData.DataStatus.ERROR -> {
 
+                    }else -> {
+
                     }
-                    else -> {}
                 }
             }
         }

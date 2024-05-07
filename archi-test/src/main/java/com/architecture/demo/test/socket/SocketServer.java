@@ -7,7 +7,7 @@ import java.net.Socket;
 
 /**
  * 模拟推送，保活验证调试
- *
+ * https://www.kancloud.cn/nov_93/java_socket/135526
  */
 public class SocketServer {
 

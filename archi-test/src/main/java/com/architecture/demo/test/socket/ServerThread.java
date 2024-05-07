@@ -10,6 +10,8 @@ import java.net.Socket;
 
 /*
  * 服务器线程处理类
+ *
+ * https://www.kancloud.cn/nov_93/java_socket/135526
  */
 public class ServerThread extends Thread {
    // 和本线程相关的Socket
