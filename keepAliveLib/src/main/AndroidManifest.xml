@@ -3,17 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.anylife.keepalive">
 
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <application
-        android:allowBackup="true">
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application android:allowBackup="true">
+        <activity
+            android:name=".h5.H5KeepAliveGuideActivity"
+            android:exported="false" />
+
         <service
-            android:name="com.anylife.keepalive.service.KeepAliveService"
+            android:name=".service.KeepAliveService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service
-            android:name="com.anylife.keepalive.service.CancelNotifyService"
-            android:exported="true"/>
+            android:name=".service.CancelNotifyService"
+            android:exported="true" />
 
     </application>
+
 </manifest>

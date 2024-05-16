@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.architecture.demo'
-    compileSdkVersion 32
+    compileSdk  34
 
     defaultConfig {
         applicationId "com.architecture.demo"
         minSdkVersion 23
-        targetSdkVersion 32
+        targetSdkVersion 34
         versionCode 1
         versionName "3.1.0"
     }

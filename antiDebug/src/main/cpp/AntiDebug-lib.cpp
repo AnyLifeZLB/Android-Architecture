@@ -190,6 +190,8 @@ void antiPtrace(void) {
 JNICALL
 extern "C"
 void Java_com_anylife_antidebug_AntiDebugInterface_checkDebug2(JNIEnv *env, jclass clazz) {
+    //添加一个时间的限制
+
     if (pthread_create(&t_id, NULL, anti_ptrace, NULL) != 0) {
         kill(0, SIGKILL);
     }

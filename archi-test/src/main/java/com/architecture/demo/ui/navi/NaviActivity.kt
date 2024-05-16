@@ -6,10 +6,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
-import com.anylife.antidebug.AntiDebugInterface.checkDebug
 import com.anylife.keepalive.service.KeepAliveService
-import com.anylife.keepalive.utils.BatteryUtils
-import com.anylife.keepalive.utils.BatteryUtils.addWhiteList
 import com.anylife.keepalive.utils.BatteryUtils.isIgnoringBatteryOptimizations
 import com.anylife.keepalive.utils.BatteryUtils.requestIgnoreBatteryOptimizations
 
@@ -31,19 +28,19 @@ class NaviActivity : ComponentActivity() {
         }
 
 
-        checkDebug()
+//        checkDebug()
 
 
         //KeepAliveService，这里不要设置东西
-        startService(Intent(this, KeepAliveService::class.java))
+//        startService(Intent(this, KeepAliveService::class.java))
 
 //        KeepAliveService.start(baseContext,KeepAliveService.AliveStrategy.JOB_SERVICE)
 
         Log.e("Main","------------------------ isIgnoringBatteryOptimizations:"+ isIgnoringBatteryOptimizations(baseContext));
 
-        if(!isIgnoringBatteryOptimizations(baseContext)){
-            requestIgnoreBatteryOptimizations(baseContext)
-        }
+//        if(!isIgnoringBatteryOptimizations(baseContext)){
+//            requestIgnoreBatteryOptimizations(baseContext)
+//        }
 
 //        addWhiteList(baseContext)
 

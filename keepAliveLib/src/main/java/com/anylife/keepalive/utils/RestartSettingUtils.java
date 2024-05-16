@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
  * 先兼容小米 华为 一加手机
  *
  */
-public class KeepAliveSettingUtils {
+public class RestartSettingUtils {
 
     /**
      * 跳转到指定应用的首页

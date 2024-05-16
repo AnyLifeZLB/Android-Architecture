@@ -13,7 +13,7 @@ import android.os.Message;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
 import com.anylife.keepalive.forground.ForegroundNF;
-import com.anylife.keepalive.utils.KeepAliveSettingUtils;
+import com.anylife.keepalive.utils.RestartSettingUtils;
 import com.anylife.keepalive.utils.BatteryUtils;
 
 /**
@@ -39,6 +39,7 @@ public class KeepAliveService extends JobService {
 
     /**
      * 启动策略
+     *
      */
     public enum AliveStrategy{
         NONE,
@@ -66,7 +67,7 @@ public class KeepAliveService extends JobService {
     }
 
     /**
-     * 外部只需要调用这句话就可以启动一个保活状态
+     *  外部只需要调用这句话就可以启动一个保活状态
      *
      *   AliveStrategy.BATTERYOPTIMIZATION：启动电量优化保活
      *   AliveStrategy.RESTARTACTION：启动自启动白名单保活
@@ -83,7 +84,7 @@ public class KeepAliveService extends JobService {
     public static void start(Context context,AliveStrategy _strategy){
         strategy = _strategy;
         Intent intent = new Intent(context,KeepAliveService.class);
-//        intent.putExtra(strategyKey,strategy.ordinal());
+        intent.putExtra(strategyKey,strategy.ordinal());
         context.startService(intent);
     }
 
@@ -127,10 +128,10 @@ public class KeepAliveService extends JobService {
         if(strategy == AliveStrategy.BATTERYOPTIMIZATION){
             BatteryUtils.requestIgnoreBatteryOptimizations(this);
         }else if (strategy == AliveStrategy.RESTARTACTION){
-            KeepAliveSettingUtils.setReStartAction(this);
+            RestartSettingUtils.setReStartAction(this);
         }else {
             BatteryUtils.requestIgnoreBatteryOptimizations(this);
-            KeepAliveSettingUtils.setReStartAction(this);
+            RestartSettingUtils.setReStartAction(this);
         }
     }
 

@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
-import com.anylife.keepalive.service.KeepAliveService;
+import com.anylife.keepalive.h5.H5KeepAliveGuideActivity;
+import com.anylife.keepalive.utils.BatteryUtils;
+import com.anylife.keepalive.utils.KeepCompactUtil;
 import com.architecture.demo.R;
 
 import java.io.BufferedReader;
@@ -18,7 +20,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -29,30 +30,85 @@ import java.util.Date;
 public class KeepAliveSettingActivity extends AppCompatActivity {
 
     private Socket socket;
+    private TextView ignoringBatteryOptiTextView;
     private boolean isDestroy = false;
+
+    private boolean isIgnoringBatteryOptimizations=false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        isIgnoringBatteryOptimizations=BatteryUtils.isIgnoringBatteryOptimizations(this);
+
+        if(isIgnoringBatteryOptimizations){
+            ignoringBatteryOptiTextView.setText("已优化");
+            ignoringBatteryOptiTextView.setBackgroundResource(R.drawable.shape_green_btn_bg);
+        }else {
+            ignoringBatteryOptiTextView.setText("去设置");
+            ignoringBatteryOptiTextView.setBackgroundResource(R.drawable.shape_blue_btn_bg);
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keep_alive_setting);
-        setTitle("App运行保活设置");
+        setTitle("App运行设置");
 
-        findViewById(R.id.keep_alive_tips_battery_set).setOnClickListener(new View.OnClickListener() {
+
+
+        ignoringBatteryOptiTextView=findViewById(R.id.keep_alive_battery_set);
+        ignoringBatteryOptiTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                KeepAliveService.start(getBaseContext(), KeepAliveService.AliveStrategy.BATTERYOPTIMIZATION);
+                if(!isIgnoringBatteryOptimizations){
+                    BatteryUtils.requestIgnoreBatteryOptimizations(KeepAliveSettingActivity.this);
+                }
             }
         });
 
         findViewById(R.id.keep_alive_tips_background_set).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                KeepAliveService.start(getBaseContext(), KeepAliveService.AliveStrategy.RESTARTACTION);
+
+                H5KeepAliveGuideActivity.Companion.startWebView(getBaseContext(),"file:///android_asset/keepalive_guide/html/mi_cn.html");
+
+//                RestartSettingUtils.setReStartAction(getBaseContext());
             }
         });
 
+
+        findViewById(R.id.battery_set_background_set).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                KeepCompactUtil.INSTANCE.noSleepSet(KeepAliveSettingActivity.this);
+//                BatteryUtils.addWhiteList(KeepAliveSettingActivity.this);
+            }
+        });
+
+
+
         createSocket();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
