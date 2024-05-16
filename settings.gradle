@@ -1,0 +1,24 @@
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
+        maven { url "https://www.jitpack.io" }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+        }
+    }
+}
+
+rootProject.name = "Android-Architecture"
+
+include ':network'
+include ':archi-test'
+include ':base'
+include ':keepAliveLib'
+include ':antiDebug'
