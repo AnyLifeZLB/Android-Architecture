@@ -8,10 +8,11 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 
 /**
- * 判断手机的型号，并且调整到指定的页面，后面可以加一个Html5 的设置引导方式来处理
- * 先兼容小米 华为 一加手机
+ * 后台运行权限，也就是自启动
+ * 暂时先不要这些了，不维护了；
  *
  */
+@Deprecated
 public class RestartSettingUtils {
 
     /**

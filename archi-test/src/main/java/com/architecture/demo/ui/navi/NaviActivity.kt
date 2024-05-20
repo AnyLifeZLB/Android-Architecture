@@ -1,14 +1,11 @@
 package com.architecture.demo.ui.navi
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
-import com.anylife.keepalive.service.KeepAliveService
-import com.anylife.keepalive.utils.BatteryUtils.isIgnoringBatteryOptimizations
-import com.anylife.keepalive.utils.BatteryUtils.requestIgnoreBatteryOptimizations
+import com.anylife.keepalive.utils.BatteryOptimization.isIgnoringBatteryOptimizations
 
 /***
  * ComponentActivity ：使用最新的尝试看看

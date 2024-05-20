@@ -12,88 +12,105 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.ContentLoadingProgressBar
 import com.anylife.keepalive.R
+import com.anylife.keepalive.databinding.ActivityH5KeepAliveGuideBinding
+import com.anylife.keepalive.utils.KeepCompactUtil.daemonSet
+import com.anylife.keepalive.utils.KeepCompactUtil.noSleepSet
 
 /**
  * 引导
  *
  */
 class H5KeepAliveGuideActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityH5KeepAliveGuideBinding
 
-    private lateinit var webView: WebView
     private lateinit var url: String
-    private lateinit var progressBar: ContentLoadingProgressBar
+//    private lateinit var progressBar: ContentLoadingProgressBar
+//    private lateinit var webView: WebView
+
+    private lateinit var keepType: String
+
 
     companion object {
         const val URL = "url" //网页url
+        const val KEEP_TYPE = "KeepTypeMenu"
 
-        fun startWebView(context: Context, url: String) {
+
+        fun startWebView(context: Context, url: String, type: KeepTypeMenu) {
             val intent = Intent(context, H5KeepAliveGuideActivity::class.java)
             //通知路由 小米 Android 10无法打开爆了缺少该flags
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.putExtra(H5KeepAliveGuideActivity.URL, url)
+            intent.putExtra(URL, url)
+            intent.putExtra(KEEP_TYPE, type.toString())
             context.startActivity(intent)
         }
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_h5_keep_alive_guide)
+//        setContentView(R.layout.activity_h5_keep_alive_guide)
+
+        binding = ActivityH5KeepAliveGuideBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        webView = findViewById(R.id.webView)
-        progressBar= findViewById(R.id.progress)
+//        webView = findViewById(R.id.webView)
+//        progressBar = findViewById(R.id.progress)
         // WebViewClient allows you to handle
         // onPageFinished and override Url loading.
-        webView.webViewClient = WebViewClient()
+        binding.webView.webViewClient = WebViewClient()
 
-
-        url = intent.getStringExtra(H5KeepAliveGuideActivity.URL).toString()
-
+        url = intent.getStringExtra(URL).toString()
+        keepType = intent.getStringExtra(KEEP_TYPE).toString()
 
         if (!TextUtils.isEmpty(url)) {
-            webView.loadUrl(url)
+            binding.webView.loadUrl(url)
         }
 
-
-        val settings: WebSettings = webView.settings
-        settings.javaScriptEnabled = true // 启用javascript
-        settings.domStorageEnabled = true // 支持HTML5中的一些控件标签
-        settings.builtInZoomControls = false // 自选，非必要
+        val settings: WebSettings = binding.webView.settings
+        settings.javaScriptEnabled = true     // 启用javascript
+        settings.domStorageEnabled = true     // 支持HTML5中的一些控件标签
+        settings.builtInZoomControls = false  // 自选，非必要
 
         // if you want to enable zoom feature
-        webView.settings.setSupportZoom(true)
+        binding.webView.settings.setSupportZoom(true)
 
 
-        webView.webChromeClient = object : WebChromeClient() {
+        binding.webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(p0: WebView?, progress: Int) {
                 super.onProgressChanged(p0, progress)
-                progressBar.progress = progress
+                binding.progressBar.progress = progress
                 if (progress == 100) {
-                    progressBar.hide()
+                    binding.progressBar.hide()
                 }
             }
 
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 super.onReceivedTitle(view, title)
-                supportActionBar?.title=title
+                supportActionBar?.title = title
+            }
+        }
+
+
+
+        binding.goSetting.setOnClickListener {
+            if (keepType.equals(KeepTypeMenu.battery)) {
+                noSleepSet(this@H5KeepAliveGuideActivity)
+            } else {
+                daemonSet(this@H5KeepAliveGuideActivity)
             }
         }
 
     }
 
 
-    // if you press Back button this code will work
     override fun onBackPressed() {
-        // if your webview can go back it will go back
-        if (webView.canGoBack())
-            webView.goBack()
-        // if your webview cannot go back
-        // it will exit the application
+        if (binding.webView.canGoBack())
+            binding.webView.goBack()
         else
             super.onBackPressed()
     }
@@ -107,6 +124,11 @@ class H5KeepAliveGuideActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+
+    enum class KeepTypeMenu {
+        battery, daemon
     }
 
 }

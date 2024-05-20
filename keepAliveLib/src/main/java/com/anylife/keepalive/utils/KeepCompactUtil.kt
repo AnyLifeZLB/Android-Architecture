@@ -148,12 +148,17 @@ import android.util.Log
 
 
     /**
-     * @return 是否为三星s9 型号的手机
+     * @return 是否为三星s9 型号的手机  Build.BRAND
      */
     val isSamsungS9: Boolean
         get() = ("samsung".equals(Build.BRAND, ignoreCase = true) && !TextUtils.isEmpty(Build.MODEL)
                 && Build.MODEL.startsWith("SM-G9"))
 
+
+     /**
+      * 获取型号
+      *
+      */
     val deviceEnum: BrandAliveEnum
         get() {
             if ("Huawei".equals(Build.BRAND, ignoreCase = true) || "HONOR".equals(Build.BRAND, ignoreCase = true)) {
@@ -183,13 +188,14 @@ import android.util.Log
             if ("Coolpad".equals(Build.BRAND, ignoreCase = true)) {
                 return BrandAliveEnum.NONE
             }
+
             return if ("ZTE".equals(Build.BRAND, ignoreCase = true)) {
                 BrandAliveEnum.NONE
             } else BrandAliveEnum.NONE
 
         }
 
-    // 自启动
+    // 进程守护, 自启动
     fun daemonSet(activity: Activity): Boolean {
         for (intent in AUTO_START_INTENTS) {
             if (activity.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
@@ -206,7 +212,7 @@ import android.util.Log
         return false
     }
 
-    // 防睡眠
+    // 防睡眠,电池管理
     fun noSleepSet(activity: Activity): Boolean {
         for (intent in BATTERY_INTENTS) {
             if (activity.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {

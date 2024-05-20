@@ -7,9 +7,11 @@ buildscript {
         maven {
             url 'https://maven.aliyun.com/repository/jcenter'
         }
+
         maven {
             url 'https://maven.aliyun.com/repository/google'
         }
+
         maven { url "https://www.jitpack.io" }
         maven { url 'https://repo1.maven.org/maven2/' }
     }

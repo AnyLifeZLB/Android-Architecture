@@ -9,8 +9,9 @@ import android.provider.Settings;
 
 /**
  * 判断应用是否在白名单中，并且能调整到系统基本的设置里面去
+ * 这个没问题，OK，Done
  */
-public class BatteryUtils {
+public class BatteryOptimization {
 
     /**
      * 判断是否在电池优化的白名单中

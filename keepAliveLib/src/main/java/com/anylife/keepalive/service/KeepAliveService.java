@@ -14,7 +14,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 import com.anylife.keepalive.forground.ForegroundNF;
 import com.anylife.keepalive.utils.RestartSettingUtils;
-import com.anylife.keepalive.utils.BatteryUtils;
+import com.anylife.keepalive.utils.BatteryOptimization;
 
 /**
  * 创建一个JobService用于提高应用优先级
@@ -126,11 +126,11 @@ public class KeepAliveService extends JobService {
             return;
         }
         if(strategy == AliveStrategy.BATTERYOPTIMIZATION){
-            BatteryUtils.requestIgnoreBatteryOptimizations(this);
+            BatteryOptimization.requestIgnoreBatteryOptimizations(this);
         }else if (strategy == AliveStrategy.RESTARTACTION){
             RestartSettingUtils.setReStartAction(this);
         }else {
-            BatteryUtils.requestIgnoreBatteryOptimizations(this);
+            BatteryOptimization.requestIgnoreBatteryOptimizations(this);
             RestartSettingUtils.setReStartAction(this);
         }
     }

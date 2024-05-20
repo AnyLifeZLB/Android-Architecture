@@ -8,7 +8,7 @@ plugins {
 android {
     compileSdk 34
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -31,6 +31,18 @@ android {
 
     kotlinOptions {
         jvmTarget = '11'
+    }
+
+
+
+    composeOptions {
+        //https://developer.android.com/jetpack/androidx/releases/compose-compiler?hl=zh-cn
+        kotlinCompilerExtensionVersion '1.5.8'
+    }
+
+    buildFeatures {
+//        compose true
+        viewBinding true  //https://developer.android.com/topic/libraries/view-binding?hl=zh-cn
     }
 
 }
