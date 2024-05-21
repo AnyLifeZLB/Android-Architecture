@@ -8,124 +8,271 @@ import android.os.Build
 import android.text.TextUtils
 import android.util.Log
 
- object KeepCompactUtil {
+/**
+ * 原生跳转引导
+ *
+ * @author zenglb@vanke.com
+ */
+object KeepCompactUtil {
 
     private val AUTO_START_INTENTS = arrayOf(
         // 小米
         Intent().setComponent(
-            ComponentName("com.miui.securitycenter",
-            "com.miui.permcenter.autostart.AutoStartManagementActivity")
+            ComponentName(
+                "com.miui.securitycenter",
+                "com.miui.permcenter.autostart.AutoStartManagementActivity"
+            )
         ),
+
         // 华为
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.huawei.systemmanager/.startupmgr.ui.StartupNormalAppListActivity")),
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.huawei.systemmanager/.appcontrol.activity.StartupAppControlActivity")),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.huawei.systemmanager/.startupmgr.ui.StartupNormalAppListActivity")
+        ),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.huawei.systemmanager/.appcontrol.activity.StartupAppControlActivity")
+        ),
 
         // 魅族
         Intent().setComponent(ComponentName.unflattenFromString("com.meizu.safe/.SecurityCenterActivity")),
 
         // 三星
-        Intent().setComponent(ComponentName("com.samsung.android.sm_cn",
-            "com.samsung.android.sm.autorun.ui.AutoRunActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm_cn",
-            "com.samsung.android.sm.ui.ram.AutoRunActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm_cn",
-            "com.samsung.android.sm.ui.appmanagement.AppManagementActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm",
-            "com.samsung.android.sm.autorun.ui.AutoRunActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm",
-            "com.samsung.android.sm.ui.ram.AutoRunActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm",
-            "com.samsung.android.sm.ui.appmanagement.AppManagementActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm_cn",
-            "com.samsung.android.sm.ui.cstyleboard.SmartManagerDashBoardActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm",
-            "com.samsung.android.sm.ui.cstyleboard.SmartManagerDashBoardActivity")),
-        Intent().setComponent(ComponentName.unflattenFromString(
-            "com.samsung.android.sm_cn/.app.dashboard.SmartManagerDashBoardActivity")),
-        Intent().setComponent(ComponentName.unflattenFromString(
-            "com.samsung.android.sm/.app.dashboard.SmartManagerDashBoardActivity")),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm_cn",
+                "com.samsung.android.sm.autorun.ui.AutoRunActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm_cn",
+                "com.samsung.android.sm.ui.ram.AutoRunActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm_cn",
+                "com.samsung.android.sm.ui.appmanagement.AppManagementActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm",
+                "com.samsung.android.sm.autorun.ui.AutoRunActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm",
+                "com.samsung.android.sm.ui.ram.AutoRunActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm",
+                "com.samsung.android.sm.ui.appmanagement.AppManagementActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm_cn",
+                "com.samsung.android.sm.ui.cstyleboard.SmartManagerDashBoardActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm",
+                "com.samsung.android.sm.ui.cstyleboard.SmartManagerDashBoardActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName.unflattenFromString(
+                "com.samsung.android.sm_cn/.app.dashboard.SmartManagerDashBoardActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName.unflattenFromString(
+                "com.samsung.android.sm/.app.dashboard.SmartManagerDashBoardActivity"
+            )
+        ),
 
         // oppo
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.coloros.safecenter/.startupapp.StartupAppListActivity")),
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.coloros.safecenter/.permission.startupapp.StartupAppListActivity")),
-        Intent().setComponent(ComponentName("com.coloros.safecenter",
-            "com.coloros.privacypermissionsentry.PermissionTopActivity")),
         Intent().setComponent(
-            ComponentName.unflattenFromString("com.oppo.safe/.permission.startup.StartupAppListActivity")),
+            ComponentName
+                .unflattenFromString("com.coloros.safecenter/.startupapp.StartupAppListActivity")
+        ),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.coloros.safecenter/.permission.startupapp.StartupAppListActivity")
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.coloros.safecenter",
+                "com.coloros.privacypermissionsentry.PermissionTopActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName.unflattenFromString("com.oppo.safe/.permission.startup.StartupAppListActivity")
+        ),
 
         // vivo
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.vivo.permissionmanager/.activity.BgStartUpManagerActivity")),
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.iqoo.secure/.phoneoptimize.BgStartUpManager")),
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.vivo.permissionmanager/.activity.PurviewTabActivity")),
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.iqoo.secure/.ui.phoneoptimize.SoftwareManagerActivity")),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.vivo.permissionmanager/.activity.BgStartUpManagerActivity")
+        ),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.iqoo.secure/.phoneoptimize.BgStartUpManager")
+        ),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.vivo.permissionmanager/.activity.PurviewTabActivity")
+        ),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.iqoo.secure/.ui.phoneoptimize.SoftwareManagerActivity")
+        ),
 
         // 一加
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.oneplus.security/.chainlaunch.view.ChainLaunchAppListActivity")),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.oneplus.security/.chainlaunch.view.ChainLaunchAppListActivity")
+        ),
 
         // 乐视
         Intent().setComponent(
-            ComponentName.unflattenFromString("com.letv.android.letvsafe/.AutobootManageActivity")),
+            ComponentName.unflattenFromString("com.letv.android.letvsafe/.AutobootManageActivity")
+        ),
 
         // HTC
         Intent().setComponent(
-            ComponentName.unflattenFromString("com.htc.pitroad/.landingpage.activity.LandingPageActivity"))
+            ComponentName.unflattenFromString("com.htc.pitroad/.landingpage.activity.LandingPageActivity")
+        )
     )
 
     private val BATTERY_INTENTS = arrayOf(
         // 小米
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.miui.powerkeeper/.ui.HiddenAppsContainerManagementActivity")),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.miui.powerkeeper/.ui.HiddenAppsContainerManagementActivity")
+        ),
 
-        // 华为
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.huawei.systemmanager/.power.ui.HwPowerManagerActivity")),
+
+        // 华为， 前后各种不一致，混乱
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.huawei.systemmanager/.power.ui.HwPowerManagerActivity")
+        ),
+
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.huawei.systemmanager/.startupmgr.ui.StartupNormalAppListActivity")
+        ),
+
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.huawei.systemmanager/.optimize.bootstart.BootStartActivity")
+        ),
+
+        //华为鸿蒙OS 3，P20，
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.huawei.systemmanager/.mainscreen.MainScreenActivity")
+        ),
+
 
         // 魅族
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.meizu.safe/.SecurityCenterActivity")),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.meizu.safe/.SecurityCenterActivity")
+        ),
 
         // 三星
-        Intent().setComponent(ComponentName("com.samsung.android.sm_cn",
-            "com.samsung.android.sm.ui.battery.AppSleepListActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm_cn",
-            "com.samsung.android.sm.ui.battery.BatteryActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm",
-            "com.samsung.android.sm.ui.battery.AppSleepListActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm",
-            "com.samsung.android.sm.ui.battery.BatteryActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.lool",
-            "com.samsung.android.sm.battery.ui.BatteryActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.lool",
-            "com.samsung.android.sm.ui.battery.BatteryActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm",
-            "com.samsung.android.sm.ui.battery.BatteryActivity")),
-        Intent().setComponent(ComponentName("com.samsung.android.sm_cn",
-            "com.samsung.android.sm.ui.cstyleboard.SmartManagerDashBoardActivity")),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm_cn",
+                "com.samsung.android.sm.ui.battery.AppSleepListActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm_cn",
+                "com.samsung.android.sm.ui.battery.BatteryActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm",
+                "com.samsung.android.sm.ui.battery.AppSleepListActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm",
+                "com.samsung.android.sm.ui.battery.BatteryActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.lool",
+                "com.samsung.android.sm.battery.ui.BatteryActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.lool",
+                "com.samsung.android.sm.ui.battery.BatteryActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm",
+                "com.samsung.android.sm.ui.battery.BatteryActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.samsung.android.sm_cn",
+                "com.samsung.android.sm.ui.cstyleboard.SmartManagerDashBoardActivity"
+            )
+        ),
 
         // oppo
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.coloros.safecenter/.appfrozen.activity.AppFrozenSettingsActivity")),
-        Intent().setComponent(ComponentName("com.coloros.oppoguardelf",
-            "com.coloros.powermanager.fuelgaue.PowerUsageModelActivity")),
-        Intent().setComponent(ComponentName("com.coloros.oppoguardelf",
-            "com.coloros.powermanager.fuelgaue.PowerSaverModeActivity")),
-        Intent().setComponent(ComponentName("com.coloros.oppoguardelf",
-            "com.coloros.powermanager.fuelgaue.PowerConsumptionActivity")),
-        Intent().setComponent(ComponentName
-            .unflattenFromString("com.oppo.safe/.SecureSafeMainActivity")),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.coloros.safecenter/.appfrozen.activity.AppFrozenSettingsActivity")
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.coloros.oppoguardelf",
+                "com.coloros.powermanager.fuelgaue.PowerUsageModelActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.coloros.oppoguardelf",
+                "com.coloros.powermanager.fuelgaue.PowerSaverModeActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName(
+                "com.coloros.oppoguardelf",
+                "com.coloros.powermanager.fuelgaue.PowerConsumptionActivity"
+            )
+        ),
+        Intent().setComponent(
+            ComponentName
+                .unflattenFromString("com.oppo.safe/.SecureSafeMainActivity")
+        ),
 
         // vivo
-        Intent().setComponent(ComponentName("com.vivo.abe",
-            "com.vivo.applicationbehaviorengine.ui.ExcessivePowerManagerActivity")),
+        Intent().setComponent(
+            ComponentName(
+                "com.vivo.abe",
+                "com.vivo.applicationbehaviorengine.ui.ExcessivePowerManagerActivity"
+            )
+        ),
         Intent().setComponent(ComponentName.unflattenFromString("com.iqoo.powersaving/.PowerSavingManagerActivity"))
     )
 
@@ -142,8 +289,8 @@ import android.util.Log
         }
     }
 
-    enum class BrandAliveEnum{
-        Huawei,Xiaomi,Oppo,Vivo,Samsung,Meizu,Yijia,NONE
+    enum class BrandAliveEnum {
+        Huawei, Xiaomi, Oppo, Vivo, Samsung, Meizu, Yijia, NONE
     }
 
 
@@ -155,13 +302,17 @@ import android.util.Log
                 && Build.MODEL.startsWith("SM-G9"))
 
 
-     /**
-      * 获取型号
-      *
-      */
+    /**
+     * 获取型号
+     *
+     */
     val deviceEnum: BrandAliveEnum
         get() {
-            if ("Huawei".equals(Build.BRAND, ignoreCase = true) || "HONOR".equals(Build.BRAND, ignoreCase = true)) {
+            if ("Huawei".equals(Build.BRAND, ignoreCase = true) || "HONOR".equals(
+                    Build.BRAND,
+                    ignoreCase = true
+                )
+            ) {
                 return BrandAliveEnum.Huawei
             }
             if ("vivo".equals(Build.BRAND, ignoreCase = true)) {
@@ -198,7 +349,11 @@ import android.util.Log
     // 进程守护, 自启动
     fun daemonSet(activity: Activity): Boolean {
         for (intent in AUTO_START_INTENTS) {
-            if (activity.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            if (activity.packageManager.resolveActivity(
+                    intent,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                ) != null
+            ) {
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 try {
                     activity.startActivity(intent)
@@ -215,7 +370,11 @@ import android.util.Log
     // 防睡眠,电池管理
     fun noSleepSet(activity: Activity): Boolean {
         for (intent in BATTERY_INTENTS) {
-            if (activity.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            if (activity.packageManager.resolveActivity(
+                    intent,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                ) != null
+            ) {
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 try {
                     activity.startActivity(intent)

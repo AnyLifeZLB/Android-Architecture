@@ -10,6 +10,8 @@ import android.provider.Settings;
 /**
  * 判断应用是否在白名单中，并且能调整到系统基本的设置里面去
  * 这个没问题，OK，Done
+ *
+ * @author zenglb@vanke.com
  */
 public class BatteryOptimization {
 

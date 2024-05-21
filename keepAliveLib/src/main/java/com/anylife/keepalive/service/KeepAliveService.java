@@ -23,7 +23,7 @@ import com.anylife.keepalive.utils.BatteryOptimization;
  * 如果是音乐类型的，可以直接使用音乐的服务MusicPlayerService挂接通知即可做的一定程度的保活
  *
  *
- *
+ * @author zenglb@vanke.com
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class KeepAliveService extends JobService {

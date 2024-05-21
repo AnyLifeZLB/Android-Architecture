@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.anylife.keepalive.h5.H5KeepAliveGuideActivity
 import com.anylife.keepalive.utils.BatteryOptimization
-import com.anylife.keepalive.utils.KeepCompactUtil.daemonSet
 import com.anylife.keepalive.utils.KeepCompactUtil.deviceEnum
 import com.anylife.keepalive.h5.H5KeepAliveGuideActivity.KeepTypeMenu
 import com.architecture.demo.R
@@ -23,13 +22,14 @@ import java.util.Date
 /**
  * 保活设置，这里处理的数据移动到其他地方去，不要和Activity 绑定
  * 单独使用一个Service 来验证吧，
+ *
+ * @author zenglb@vanke.com
  */
 class KeepAliveSettingActivity : AppCompatActivity() {
     private var socket: Socket? = null
     private lateinit var  ignoringBatteryOptiTextView: TextView
     private var isDestroy = false
     private var isIgnoringBatteryOptimizations = false
-
 
     private lateinit var deviceName: String
 
@@ -64,20 +64,15 @@ class KeepAliveSettingActivity : AppCompatActivity() {
             }
         })
 
-        findViewById<View>(R.id.keep_alive_tips_background_set).setOnClickListener {
-//            daemonSet(this@KeepAliveSettingActivity)
+        findViewById<View>(R.id.keep_alive_background_set).setOnClickListener {
             H5KeepAliveGuideActivity.Companion.startWebView(baseContext,getURLPath(
-                KeepTypeMenu.battery,deviceName),KeepTypeMenu.battery)
+                KeepTypeMenu.daemon,deviceName),KeepTypeMenu.daemon)
         }
 
 
         findViewById<View>(R.id.battery_set_background_set).setOnClickListener {
-//            noSleepSet(
-//                this@KeepAliveSettingActivity
-//            )
-
             H5KeepAliveGuideActivity.Companion.startWebView(baseContext,getURLPath(
-                KeepTypeMenu.daemon,deviceName),KeepTypeMenu.battery);
+                KeepTypeMenu.battery,deviceName),KeepTypeMenu.battery)
         }
 
         createSocket()
@@ -85,13 +80,12 @@ class KeepAliveSettingActivity : AppCompatActivity() {
 
 
     /**
-     * 获取拼接后的URL
-     * H5KeepAliveGuideActivity.Companion.startWebView(getBaseContext(),"file:///android_asset/keepalive_guide/html/mi_cn.html");
+     * 不用判断一堆的手机型号，按照一定的规则来处理拼接处理URL
      *
-     * @param keepType
-     * @param deviceName
+     * @param keepType    保活类型，省电优化还是后台启动
+     * @param deviceName  设备厂商类型
      */
-    private fun getURLPath(keepType: H5KeepAliveGuideActivity.KeepTypeMenu, deviceName: String): String {
+    private fun getURLPath(keepType: KeepTypeMenu, deviceName: String): String {
         return "file:///android_asset/keepalive_guide/html/$keepType/$deviceName/$deviceName.html"
     }
 

@@ -15,25 +15,21 @@ import com.anylife.keepalive.R
 import com.anylife.keepalive.databinding.ActivityH5KeepAliveGuideBinding
 import com.anylife.keepalive.utils.KeepCompactUtil.daemonSet
 import com.anylife.keepalive.utils.KeepCompactUtil.noSleepSet
+import com.anylife.keepalive.utils.RestartSettingUtils
 
 /**
  * 引导
  *
+ * @author zenglb@vanke.com
  */
 class H5KeepAliveGuideActivity : AppCompatActivity() {
     private lateinit var binding: ActivityH5KeepAliveGuideBinding
-
     private lateinit var url: String
-//    private lateinit var progressBar: ContentLoadingProgressBar
-//    private lateinit var webView: WebView
-
     private lateinit var keepType: String
 
-
     companion object {
-        const val URL = "url" //网页url
+        const val URL = "url"
         const val KEEP_TYPE = "KeepTypeMenu"
-
 
         fun startWebView(context: Context, url: String, type: KeepTypeMenu) {
             val intent = Intent(context, H5KeepAliveGuideActivity::class.java)
@@ -49,17 +45,12 @@ class H5KeepAliveGuideActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        setContentView(R.layout.activity_h5_keep_alive_guide)
-
         binding = ActivityH5KeepAliveGuideBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-//        webView = findViewById(R.id.webView)
-//        progressBar = findViewById(R.id.progress)
         // WebViewClient allows you to handle
         // onPageFinished and override Url loading.
         binding.webView.webViewClient = WebViewClient()
@@ -72,13 +63,12 @@ class H5KeepAliveGuideActivity : AppCompatActivity() {
         }
 
         val settings: WebSettings = binding.webView.settings
-        settings.javaScriptEnabled = true     // 启用javascript
-        settings.domStorageEnabled = true     // 支持HTML5中的一些控件标签
-        settings.builtInZoomControls = false  // 自选，非必要
+        settings.javaScriptEnabled = true      // 启用javascript
+        settings.domStorageEnabled = true      // 支持HTML5中的一些控件标签
+        settings.builtInZoomControls = false   // 自选，非必要
 
         // if you want to enable zoom feature
         binding.webView.settings.setSupportZoom(true)
-
 
         binding.webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(p0: WebView?, progress: Int) {
@@ -95,11 +85,10 @@ class H5KeepAliveGuideActivity : AppCompatActivity() {
             }
         }
 
-
-
         binding.goSetting.setOnClickListener {
-            if (keepType.equals(KeepTypeMenu.battery)) {
+            if (keepType == KeepTypeMenu.battery.toString()) {
                 noSleepSet(this@H5KeepAliveGuideActivity)
+//                RestartSettingUtils.setReStartAction(this@H5KeepAliveGuideActivity)
             } else {
                 daemonSet(this@H5KeepAliveGuideActivity)
             }
