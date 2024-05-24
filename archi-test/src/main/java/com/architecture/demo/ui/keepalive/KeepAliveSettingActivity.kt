@@ -1,15 +1,29 @@
 package com.architecture.demo.ui.keepalive
 
+import android.content.Intent
+import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.anylife.keepalive.h5.H5KeepAliveGuideActivity
+import com.anylife.keepalive.h5.H5KeepAliveGuideActivity.KeepTypeMenu
+import com.anylife.keepalive.service.KeepAliveService
+import com.anylife.keepalive.service.KeepAliveService.AliveStrategy
 import com.anylife.keepalive.utils.BatteryOptimization
 import com.anylife.keepalive.utils.KeepCompactUtil.deviceEnum
-import com.anylife.keepalive.h5.H5KeepAliveGuideActivity.KeepTypeMenu
 import com.architecture.demo.R
 import java.io.BufferedReader
 import java.io.IOException
@@ -18,10 +32,13 @@ import java.io.PrintWriter
 import java.net.Socket
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.concurrent.TimeUnit
 
 /**
  * 保活设置，这里处理的数据移动到其他地方去，不要和Activity 绑定
- * 单独使用一个Service 来验证吧，
+ * 单独使用一个Service 来验证吧
+ *
+ * https://tuisemo.github.io/2018/09/18/json-server%E2%80%94%E2%80%9430%E7%A7%92%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E7%9A%84REST-API%E6%9C%8D/
  *
  * @author zenglb@vanke.com
  */
@@ -32,6 +49,8 @@ class KeepAliveSettingActivity : AppCompatActivity() {
     private var isIgnoringBatteryOptimizations = false
 
     private lateinit var deviceName: String
+
+    private lateinit var keepAliveViewModel:KeepAliveViewModel
 
 
     override fun onResume() {
@@ -75,7 +94,53 @@ class KeepAliveSettingActivity : AppCompatActivity() {
                 KeepTypeMenu.battery,deviceName),KeepTypeMenu.battery)
         }
 
+
+
+
+        keepAliveViewModel =
+            ViewModelProvider(this)[KeepAliveViewModel::class.java]
+
         createSocket()
+
+        postData()
+
+
+
+        //约束条件
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.NOT_REQUIRED)  //???
+            .setRequiresCharging(false)
+            .build()
+
+
+        //Worker 定义工作单元，WorkRequest（及其子类）则定义工作运行方式和时间
+        val uploadWorkRequest: WorkRequest =
+            OneTimeWorkRequestBuilder<UploadWorker>()
+                .build()
+
+
+        val request = OneTimeWorkRequestBuilder<UploadWorker>().setInitialDelay(0L, TimeUnit.MILLISECONDS)
+            // 周期性任务不能设置这个，有延迟的任务也不能设置这个
+            //.setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+            .setConstraints(constraints)
+            .build()
+
+
+
+        //将 WorkRequest 提交给系统
+//        WorkManager
+//            .getInstance(baseContext)
+//            .enqueue(uploadWorkRequest)
+
+
+        WorkManager.getInstance(baseContext).enqueueUniqueWork(
+            "workName????",
+            ExistingWorkPolicy.REPLACE,
+            request
+        )
+
+
+
     }
 
 
@@ -92,6 +157,31 @@ class KeepAliveSettingActivity : AppCompatActivity() {
 
 
 
+    /**
+     * 创建Socket 链接
+     */
+    private fun postData() {
+
+        Thread {
+            try {
+                //1、创建客户端Socket，指定服务器地址和端口 10.39.170.156
+
+                while (!isDestroy) {
+                    //2、获取输出流，向服务端发送信息
+                    keepAliveViewModel.postJsonData(application)
+
+                    Thread.sleep(10000)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                println("-- finally error -----------")
+            }
+        }.start()
+    }
+
+
+
 
     // 下面是测试验证代码
 
@@ -99,32 +189,37 @@ class KeepAliveSettingActivity : AppCompatActivity() {
      * 创建Socket 链接
      */
     private fun createSocket() {
+
+        // 获取Wi-Fi 信息
+        val wifiService = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+
         Thread {
             try {
-                //1、创建客户端Socket，指定服务器地址和端口
-                socket = Socket("10.39.169.59", 8886)
+                //1、创建客户端Socket，指定服务器地址和端口 10.39.170.156
+                socket = Socket("10.39.179.70", 8894)
 
                 while (!isDestroy) {
                     //2、获取输出流，向服务端发送信息
                     val os = socket!!.getOutputStream() //字节输出流
                     val pw = PrintWriter(os) //将输出流包装为打印流
 
+                    val ssid= wifiService.connectionInfo.ssid
                     //3，收集手机型号和时间。加个时间戳网络活动可能受限制，看看本地Log 有没有问题和间隔时间统计
-                    pw.println(Build.BRAND + ": Hello Server " + stampToDate(System.currentTimeMillis()))
+                    pw.println(Build.BRAND + "      $ssid      " + stampToDate(System.currentTimeMillis()))
                     Log.e("TAG", "发送 hello Server a")
                     pw.flush()
 
 
                     //4.获取输入流，并读取服务器端的响应信息
-                    val `is` = socket!!.getInputStream()
-                    val br = BufferedReader(InputStreamReader(`is`))
+                    val inputStream = socket!!.getInputStream()
+                    val br = BufferedReader(InputStreamReader(inputStream))
                     val info = br.readLine()
-                    if (info != null && info.length != 0) {
+                    if (info != null && info.isNotEmpty()) {
                         // 循环读取客户端的信息
                         Log.e("Socket", "收到服务器消息：$info")
                     }
 
-                    Thread.sleep(2000)
+                    Thread.sleep(5000)
                 }
             } catch (e: IOException) {
                 e.printStackTrace()

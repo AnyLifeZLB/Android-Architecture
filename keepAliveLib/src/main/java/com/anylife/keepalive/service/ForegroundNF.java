@@ -1,4 +1,4 @@
-package com.anylife.keepalive.forground;
+package com.anylife.keepalive.service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat;
 import com.anylife.keepalive.R;
 
 public class ForegroundNF {
-    private static final int START_ID = 101;
+    private static final int START_ID = 100;
     private static final String CHANNEL_ID = "app_foreground_service";
     private static final String CHANNEL_NAME = "前台保活服务";
 
@@ -27,14 +27,13 @@ public class ForegroundNF {
     /**
      * 初始化NotificationCompat.Builder
      *
-     * todo 提示文案需要能自定义
      */
     private void initCompatBuilder() {
         mNotificationCompatBuilder = new NotificationCompat.Builder(service,CHANNEL_ID);
         //标题
-        mNotificationCompatBuilder.setContentTitle("欢迎使用早日财富自由");
+        mNotificationCompatBuilder.setContentTitle("保活设置");
         //通知内容
-        mNotificationCompatBuilder.setContentText("现在开启我们的美好自由时光吧");
+        mNotificationCompatBuilder.setContentText("开始保活");
         mNotificationCompatBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
     }
 

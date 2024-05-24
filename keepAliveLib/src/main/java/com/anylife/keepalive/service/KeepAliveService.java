@@ -12,7 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
-import com.anylife.keepalive.forground.ForegroundNF;
+
 import com.anylife.keepalive.utils.RestartSettingUtils;
 import com.anylife.keepalive.utils.BatteryOptimization;
 
@@ -23,9 +23,9 @@ import com.anylife.keepalive.utils.BatteryOptimization;
  * 如果是音乐类型的，可以直接使用音乐的服务MusicPlayerService挂接通知即可做的一定程度的保活
  *
  *
- * @author zenglb@vanke.com
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+@Deprecated
 public class KeepAliveService extends JobService {
     private static final String TAG = KeepAliveService.class.getSimpleName();
     private static final int JOB_ID = 1;
@@ -85,7 +85,17 @@ public class KeepAliveService extends JobService {
         strategy = _strategy;
         Intent intent = new Intent(context,KeepAliveService.class);
         intent.putExtra(strategyKey,strategy.ordinal());
-        context.startService(intent);
+
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            // Android8 必须通过startForegroundService开启前台服务，Android9 需要添加权限
+            context.startForegroundService(intent);
+        }else {
+            context.startService(intent);
+        }
+
+
+//        context.startService(intent);
     }
 
     @Override
@@ -143,8 +153,8 @@ public class KeepAliveService extends JobService {
             mForgroundNF.startForegroundNotification();
         }else{
             mForgroundNF.startForegroundNotification();
-            Intent it = new Intent(this, CancelNotifyService.class);
-            startService(it);
+//            Intent it = new Intent(this, CancelNotifyService.class);
+//            startService(it);
         }
     }
 
