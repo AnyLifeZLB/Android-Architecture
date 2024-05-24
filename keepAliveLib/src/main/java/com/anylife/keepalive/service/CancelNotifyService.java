@@ -7,8 +7,6 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.anylife.keepalive.forground.ForegroundNF;
-
 /**
  * 保活设置，取消Service，应该没有毕业，正规app 都可以通知栏长驻通知
  *

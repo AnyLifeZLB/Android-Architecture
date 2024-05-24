@@ -10,12 +10,9 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.ContentLoadingProgressBar
-import com.anylife.keepalive.R
 import com.anylife.keepalive.databinding.ActivityH5KeepAliveGuideBinding
 import com.anylife.keepalive.utils.KeepCompactUtil.daemonSet
 import com.anylife.keepalive.utils.KeepCompactUtil.noSleepSet
-import com.anylife.keepalive.utils.RestartSettingUtils
 
 /**
  * 引导

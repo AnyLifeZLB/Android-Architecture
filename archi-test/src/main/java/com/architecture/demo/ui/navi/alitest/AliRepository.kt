@@ -10,8 +10,8 @@ import com.architecture.httplib.utils.MoshiUtils
 
 /**
  *
- *
  */
+@Deprecated("临时使用")
 class AliRepository {
 
     /**

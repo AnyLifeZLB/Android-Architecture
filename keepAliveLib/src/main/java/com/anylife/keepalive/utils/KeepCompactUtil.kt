@@ -16,6 +16,7 @@ import android.util.Log
 object KeepCompactUtil {
 
     private val AUTO_START_INTENTS = arrayOf(
+
         // 小米
         Intent().setComponent(
             ComponentName(
@@ -277,25 +278,28 @@ object KeepCompactUtil {
     )
 
 
-    var brandAliveEnumList: List<BrandAliveEnum> = object : ArrayList<BrandAliveEnum>() {
+    var phoneBrandEnumLists: List<PhoneBrandEnum> = object : ArrayList<PhoneBrandEnum>() {
         init {
-            add(BrandAliveEnum.Huawei)
-            add(BrandAliveEnum.Xiaomi)
-            add(BrandAliveEnum.Oppo)
-            add(BrandAliveEnum.Vivo)
-            add(BrandAliveEnum.Samsung)
-            add(BrandAliveEnum.Meizu)
-            add(BrandAliveEnum.NONE)
+            add(PhoneBrandEnum.Huawei)
+            add(PhoneBrandEnum.Xiaomi)
+            add(PhoneBrandEnum.Oppo)
+            add(PhoneBrandEnum.Vivo)
+            add(PhoneBrandEnum.Samsung)
+            add(PhoneBrandEnum.Honor)
+            add(PhoneBrandEnum.NONE)
         }
     }
 
-    enum class BrandAliveEnum {
-        Huawei, Xiaomi, Oppo, Vivo, Samsung, Meizu, Yijia, NONE
+    //区分出华为和Honor 吧，他们不会再是一家了吧
+    enum class PhoneBrandEnum {
+        Huawei, Xiaomi, Oppo, Vivo, Samsung, Honor, Yijia, NONE
     }
 
 
     /**
-     * @return 是否为三星s9 型号的手机  Build.BRAND
+     * adb shell dumpsys activity top
+     *
+     * @return 是否为三星s9 型号的手机
      */
     val isSamsungS9: Boolean
         get() = ("samsung".equals(Build.BRAND, ignoreCase = true) && !TextUtils.isEmpty(Build.MODEL)
@@ -306,43 +310,39 @@ object KeepCompactUtil {
      * 获取型号
      *
      */
-    val deviceEnum: BrandAliveEnum
+    val deviceEnum: PhoneBrandEnum
         get() {
-            if ("Huawei".equals(Build.BRAND, ignoreCase = true) || "HONOR".equals(
-                    Build.BRAND,
-                    ignoreCase = true
-                )
-            ) {
-                return BrandAliveEnum.Huawei
+            //华为，荣耀分开，虽然底层还是荣耀的字样
+
+            if ("Huawei".equals(Build.BRAND, ignoreCase = true)) {
+                return PhoneBrandEnum.Huawei
             }
+
+
             if ("vivo".equals(Build.BRAND, ignoreCase = true)) {
-                return BrandAliveEnum.Vivo
+                return PhoneBrandEnum.Vivo
             }
+
             if ("OPPO".equals(Build.BRAND, ignoreCase = true)) {
-                return BrandAliveEnum.Oppo
+                return PhoneBrandEnum.Oppo
             }
             if ("Xiaomi".equals(Build.BRAND, ignoreCase = true)) {
-                return BrandAliveEnum.Xiaomi
+                return PhoneBrandEnum.Xiaomi
             }
-            if ("Meizu".equals(Build.BRAND, ignoreCase = true)) {
-                return BrandAliveEnum.Meizu
+            if ("Honor".equals(Build.BRAND, ignoreCase = true)) {
+                return PhoneBrandEnum.Honor
             }
             if ("samsung".equals(Build.BRAND, ignoreCase = true)) {
-                return BrandAliveEnum.Samsung
+                return PhoneBrandEnum.Samsung
             }
 
             if ("oneplus".equals(Build.BRAND, ignoreCase = true)) {
-                return BrandAliveEnum.Yijia
-            }
-
-
-            if ("Coolpad".equals(Build.BRAND, ignoreCase = true)) {
-                return BrandAliveEnum.NONE
+                return PhoneBrandEnum.Yijia
             }
 
             return if ("ZTE".equals(Build.BRAND, ignoreCase = true)) {
-                BrandAliveEnum.NONE
-            } else BrandAliveEnum.NONE
+                PhoneBrandEnum.NONE
+            } else PhoneBrandEnum.NONE
 
         }
 

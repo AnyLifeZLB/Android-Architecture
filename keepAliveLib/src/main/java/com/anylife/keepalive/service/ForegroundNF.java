@@ -1,4 +1,4 @@
-package com.anylife.keepalive.forground;
+package com.anylife.keepalive.service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat;
 import com.anylife.keepalive.R;
 
 public class ForegroundNF {
-    private static final int START_ID = 101;
+    private static final int START_ID = 100;
     private static final String CHANNEL_ID = "app_foreground_service";
     private static final String CHANNEL_NAME = "前台保活服务";
 

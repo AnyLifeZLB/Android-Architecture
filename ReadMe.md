@@ -134,8 +134,6 @@ viewModelScope.launch {
  为了简单演示，Demo 中使用的是LiveData，如果你的项目都用Kotlin 编写了，建议迁移到Flow   
  从 LiveData 迁移到 Kotlin 数据流：https://juejin.cn/post/6979008878029570055
 
-## 5.接入使用
-
 
 
 
@@ -144,7 +142,11 @@ viewModelScope.launch {
 - 从架构角度看Retrofit  https://www.jianshu.com/p/f57b7cdb1c99
     
 
-## 感谢以下Api 提供方，如果失效请查看官网进行替换
+## 感谢以下第三方Api 提供方，如果失效请查看官网进行替换
 * https://api.europeana.eu/record/v2/search.json
 * https://fakerapi.it/en  
 * https://www.wanandroid.com     
+
+ 或者使用 [json-server](https://github.com/typicode/json-server) 号称环境准备好了30秒就能启动服务
+ 简易使用教程：https://juejin.cn/spost/7371986999164960778
+

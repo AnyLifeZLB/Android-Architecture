@@ -1,7 +1,7 @@
 package com.architecture.demo.http.service
 
-import com.architecture.demo.http.myinterface.AliApi
 import com.architecture.demo.http.myinterface.FakerApi
+import com.architecture.demo.http.myinterface.JsonApi
 import com.architecture.httplib.core.MoshiResultTypeAdapterFactory
 import com.architecture.httplib.base.BaseHttpApiService
 import okhttp3.Interceptor
@@ -10,17 +10,12 @@ import okhttp3.Interceptor
  * FakerApiService
  *
  */
-@Deprecated("临时使用")
-object AliApiService : BaseHttpApiService("https://dashscope.aliyuncs.com/api/v1/") {
+object JsonApiService : BaseHttpApiService("http://10.39.179.70:4444/") {
 
     override fun getInterceptor(): Interceptor {
         return Interceptor { chain ->
             val builder = chain.request().newBuilder()
-            builder.addHeader("Content-Type", "application/json")
-            builder.addHeader("Authorization", "Bearer sk-jFKisBOTle")
-//            builder.addHeader("X-DashScope-WorkSpace", "application/json")
-//            builder.addHeader("X-DashScope-SSE", "enable")
-
+            builder.addHeader("Source", "source")
             chain.proceed(builder.build())
         }
     }
@@ -30,8 +25,8 @@ object AliApiService : BaseHttpApiService("https://dashscope.aliyuncs.com/api/v1
      * 再次封装一次，减少调用的代码量
      *
      */
-    fun getService():AliApi{
-        return getService(AliApi::class.java)
+    fun getService():JsonApi{
+        return getService(JsonApi::class.java)
     }
 
 
@@ -53,7 +48,7 @@ object AliApiService : BaseHttpApiService("https://dashscope.aliyuncs.com/api/v1
             }
 
             override fun getErrorMsgKey(): String {
-                return "message"
+                return "status"
             }
 
             override fun getDataKey(): String {

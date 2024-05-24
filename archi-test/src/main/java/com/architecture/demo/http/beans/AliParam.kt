@@ -4,6 +4,9 @@ package com.architecture.demo.http.beans
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+
+@Deprecated("临时使用")
+
 @JsonClass(generateAdapter = true)
 data class AliParam(
     @Json(name = "input")

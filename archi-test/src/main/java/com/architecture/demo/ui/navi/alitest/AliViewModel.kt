@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
  * ViewModel 没啥好说的
  *
  */
+@Deprecated("临时使用")
 class AliViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
