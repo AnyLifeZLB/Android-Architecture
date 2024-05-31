@@ -2,6 +2,8 @@
 <resources>
     <color name="light_grey_bg">#20868289</color>
     <color name="light_grey">#22000000</color>
-<!--    <color name="teal_200">#FF03DAC5</color>-->
+    <color name="height_grey">#FF4D4B4B</color>
+
+    <!--    <color name="teal_200">#FF03DAC5</color>-->
 <!--    <color name="teal_700">#FF018786</color>-->
 </resources>

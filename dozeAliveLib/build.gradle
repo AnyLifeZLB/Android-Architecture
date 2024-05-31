@@ -16,14 +16,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
-
-
         externalNativeBuild {
             cmake {
                 cppFlags ""
             }
         }
-
     }
 
 
@@ -63,7 +60,8 @@ android {
 
     buildFeatures {
 //        compose true
-        viewBinding true  //https://developer.android.com/topic/libraries/view-binding?hl=zh-cn
+        viewBinding true
+        //https://developer.android.com/topic/libraries/view-binding?hl=zh-cn
     }
 
 

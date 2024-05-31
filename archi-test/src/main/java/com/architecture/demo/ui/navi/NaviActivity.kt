@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.anylife.keepalive.keepalive.DozeAliveService
-import com.anylife.keepalive.utils.ServiceCheckUtils
+import com.anylife.keepalive.utils.DozeServiceUtils
 import com.architecture.demo.application.MainApplication
 import com.architecture.demo.ui.keepalive.BackGroundWork
 
@@ -56,12 +56,16 @@ class NaviActivity : ComponentActivity() {
 
 
         //这里启动Notification,用于保活---不一定可用，多少有点用
-        if (!ServiceCheckUtils.isServiceRunning(DozeAliveService::class.java.toString(),baseContext)) {
+        if (!DozeServiceUtils.isServiceRunning(DozeAliveService::class.java.toString(),baseContext)) {
             val intent=Intent(this, DozeAliveService::class.java)
 
             //封装一下，支持传参数
             ContextCompat.startForegroundService(this, intent)
         }
+
+//        DozeAliveService.s
+
+
 
     }
 

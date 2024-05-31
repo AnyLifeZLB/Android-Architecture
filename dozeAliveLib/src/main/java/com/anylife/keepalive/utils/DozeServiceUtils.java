@@ -17,9 +17,9 @@ import androidx.annotation.NonNull;
  *
  *
  */
-public final class ServiceCheckUtils {
+public final class DozeServiceUtils {
 
-    private ServiceCheckUtils() {
+    private DozeServiceUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

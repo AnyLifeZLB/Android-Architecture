@@ -44,7 +44,7 @@ class DozeAliveSettingFragment : Fragment() {
         isIgnoringBatteryOptimizations = BatteryOptimization.isIgnoringBatteryOptimizations(context)
         if (isIgnoringBatteryOptimizations) {
             ignoringBatteryOptiTextView.text = "已优化"
-            ignoringBatteryOptiTextView.setTextColor(resources.getColor(R.color.light_grey))
+            ignoringBatteryOptiTextView.setTextColor(resources.getColor(R.color.height_grey))
         } else {
             ignoringBatteryOptiTextView.text = "去设置"
             ignoringBatteryOptiTextView.setTextColor(resources.getColor(R.color.black))

@@ -18,12 +18,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/bg_black_white_16"
+        android:padding="5dp"
+        android:background="@android:color/white"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips">
 
@@ -49,7 +48,7 @@
             android:paddingBottom="15dp"
             android:text="@string/keep_alive_tips3"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips_2" />
+            app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips_2"/>
 
         <View
             android:id="@+id/battery_line"
@@ -57,8 +56,8 @@
             android:layout_height="1px"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:background="@color/light_grey"
-            app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips_3" />
+            android:background="#1E000000"
+            app:layout_constraintTop_toBottomOf="@+id/keep_alive_tips_3"/>
 
 
         <TextView
@@ -79,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:background="@drawable/bg_black_white_24"
+            android:background="@drawable/bg_black_white_48"
             android:paddingLeft="14dp"
             android:paddingTop="5dp"
             android:paddingRight="14dp"
@@ -132,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:background="@drawable/bg_black_white_24"
+            android:background="@drawable/bg_black_white_48"
             android:paddingLeft="14dp"
             android:paddingTop="5dp"
             android:paddingRight="14dp"
@@ -184,7 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:background="@drawable/bg_black_white_24"
+            android:background="@drawable/bg_black_white_48"
             android:paddingLeft="14dp"
             android:paddingTop="5dp"
             android:paddingRight="14dp"

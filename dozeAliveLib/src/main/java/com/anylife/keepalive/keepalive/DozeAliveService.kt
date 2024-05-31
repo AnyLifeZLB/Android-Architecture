@@ -94,6 +94,13 @@ class DozeAliveService : Service() {
 //
 //        }, 1 * 10_000L)
 
+    }
+
+    /**
+     * 停止保活服务
+     *
+     */
+    fun onStop(){
 
     }
 
@@ -108,6 +115,12 @@ class DozeAliveService : Service() {
 }
 
 
+
+
+
+
+
+
 /**
  * 显示前台通知,当是否存活的标识
  *
@@ -116,11 +129,8 @@ class DozeAliveService : Service() {
 fun Context.showForegroundNotification(forUpdate: Boolean = false) {
     val notificationManager = getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager
 
-
-
     val clickIntent = Intent("com.common.dozealive.ACTION_START")
     clickIntent.addCategory("com.common.dozealive.MY_CATEGORY")
-
 
     clickIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
 
@@ -141,10 +151,10 @@ fun Context.showForegroundNotification(forUpdate: Boolean = false) {
     notificationManager.createNotificationChannel(channel)
 
     val builder = NotificationCompat.Builder(this, packageName)
-    val appName = "Android 运行中"
+    val appName = AppUtils.getAppName(applicationContext )
 
     builder.setContentTitle(appName)
-        .setContentText(appName + "运行中保活验证标识")
+        .setContentText(appName+"运行中...")
         .setChannelId(packageName)
         .setWhen(System.currentTimeMillis())
         .setPriority(NotificationCompat.PRIORITY_LOW)

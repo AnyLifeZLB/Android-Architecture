@@ -9,7 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.anylife.keepalive.keepalive.DozeAliveService
-import com.anylife.keepalive.utils.ServiceCheckUtils
+import com.anylife.keepalive.utils.DozeServiceUtils
 import com.architecture.demo.R
 import com.architecture.demo.databinding.ActivityDemoBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //这里启动Notification,用于保活---不一定可用，多少有点用
-        if (!ServiceCheckUtils.isServiceRunning(DozeAliveService::class.java.toString(),baseContext)) {
+        if (!DozeServiceUtils.isServiceRunning(DozeAliveService::class.java.toString(),baseContext)) {
             //支持传参数
             ContextCompat.startForegroundService(this, Intent(this, DozeAliveService::class.java))
         }
