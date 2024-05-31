@@ -17,6 +17,7 @@ class test {
         AliParam.Input input=new AliParam.Input(messages);
         AliParam aliParam=new AliParam(input,"qwen-vl-plus");
 
+
     }
 
 

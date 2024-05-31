@@ -7,11 +7,11 @@
 #define WCHAN_ELSE 0;
 #define WCHAN_RUNNING 1;
 #define WCHAN_TRACING 2;
+
 int keep_running;
 pthread_t t_id;
 
-//反调试参考资料： https://blog.csdn.net/darmao/article/details/78816964
-
+//Anti Debug 试参考资料： https://blog.csdn.net/darmao/article/details/78816964
 int getNumberForStr(char *str) {
     if (str == NULL) {
         return -1;
@@ -184,7 +184,8 @@ void antiPtrace(void) {
 
 
 /**
- * 对外暴露的JNI 接口
+ * 对外暴露的JNI 接口，AntiDebug
+ * 加一个时间限制
  *
  */
 JNICALL
@@ -192,13 +193,25 @@ extern "C"
 void Java_com_anylife_antidebug_AntiDebugInterface_checkDebug2(JNIEnv *env, jclass clazz) {
     //添加一个时间的限制
 
+
+
+    time_t tmpcal_ptr;
+    time(&tmpcal_ptr);
+    printf("tmpcal_ptr=%d\n", tmpcal_ptr);
+
+
+
     if (pthread_create(&t_id, NULL, anti_ptrace, NULL) != 0) {
+
         kill(0, SIGKILL);
     }
 }
 
 
-// 可以在这里验证基础Fork
+/**
+ * 这里验证Fork 进程，子进程的问题
+ *
+ */
 JNICALL
 extern "C"
 void Java_com_anylife_antidebug_AntiDebugInterface_checkDebug(JNIEnv *env, jclass clazz) {

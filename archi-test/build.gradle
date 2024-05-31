@@ -55,8 +55,8 @@ dependencies {
     
 
     implementation project(":antiDebug")
+    implementation project(':dozeAliveLib')
 
-    implementation project(":keepAliveLib")
 
     implementation project(":network")
     implementation project(":base")

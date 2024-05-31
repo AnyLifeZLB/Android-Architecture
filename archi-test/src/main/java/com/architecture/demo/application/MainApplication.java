@@ -18,38 +18,26 @@ import com.architecture.httplib.base.BaseHttpApiService;
  *
  */
 public class MainApplication extends Application {
+    public static boolean isTerminate=false;
+
+
     public void onCreate(){
         super.onCreate();
 
+
         //初始化的时候要传入的参数
         BaseHttpApiService.Companion.init(new HttpBaseInfo(this));
-
     }
 
+    /**
+     * 要注意仅仅是主进程结束才是结束，这里没有多进程，简单处理
+     */
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        isTerminate=true;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean isIgnoringBatteryOptimizations() {
-        boolean isIgnoring = false;
-        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        if (powerManager != null) {
-            isIgnoring = powerManager.isIgnoringBatteryOptimizations(getPackageName());
-        }
-        return isIgnoring;
     }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void requestIgnoreBatteryOptimizations() {
-        try {
-            Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-            intent.setData(Uri.parse("package:" + getPackageName()));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
 
 

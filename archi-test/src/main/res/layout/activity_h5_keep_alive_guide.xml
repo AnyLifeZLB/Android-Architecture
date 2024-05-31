@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/design_default_color_secondary_variant"
+        app:layout_constraintTop_toTopOf="@+id/container"
+        app:titleTextColor="@android:color/white" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container"
+        android:name="com.anylife.keepalive.h5.H5DozeAliveGuideFragment"
+        android:background="@color/black"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/go_setting_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+
+    <LinearLayout
+        android:id="@+id/go_setting_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/go_setting"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:gravity="center"
+            android:textSize="18sp"
+
+            android:background="@drawable/bg_black_white_24"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:textColor="@android:color/black"
+            android:text="去设置" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
