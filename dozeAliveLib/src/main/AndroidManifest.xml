@@ -15,19 +15,16 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application android:allowBackup="true">
-
-
-
         <activity
-            android:name="com.architecture.demo.ui.keepalive.H5DozeAliveGuideActivity"
+            android:name=".testhttp.TestActivity"
             android:exported="false" />
-
-
+        <!-- <activity -->
+        <!-- android:name="com.architecture.demo.ui.keepalive.H5DozeAliveGuideActivity" -->
+        <!-- android:exported="false" /> -->
         <service
             android:name=".service.KeepAliveService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- <service -->
-
         <service
             android:name=".keepalive.DozeAliveService"
             android:exported="false" />

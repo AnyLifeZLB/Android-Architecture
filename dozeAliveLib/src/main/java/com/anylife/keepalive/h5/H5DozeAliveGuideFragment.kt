@@ -1,6 +1,7 @@
 package com.anylife.keepalive.h5
 
 import android.app.Activity
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.anylife.keepalive.databinding.FragmentH5KeepAliveGuideBinding
 import com.anylife.keepalive.utils.KeepCompactUtil
@@ -44,17 +46,38 @@ class H5DozeAliveGuideFragment : Fragment() {
         const val URL = "url"
         const val KEEP_TYPE = "KeepTypeMenu"
 
-        fun startWebView(context: Context, url: String, type: KeepTypeMenu) {
+        fun startWebView(context: Context, url: String, type: KeepTypeMenu,cls: Class<*>) {
 
-            val intent = Intent("com.common.dozealive.ACTION_H5_GUIDE")
-            intent.addCategory("com.common.dozealive.GUIDE")
+//            val intent = Intent("com.common.dozealive.ACTION_H5_GUIDE")
+//            intent.addCategory("com.common.dozealive.GUIDE")
+//            intent.addCategory("android.intent.category.DEFAULT")
 
-            //通知路由 小米 Android 10无法打开爆了缺少该flags
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            val intent=Intent(context,TestActivity::class.java)
+            val intent=Intent(context,cls)
+
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+
             intent.putExtra(URL, url)
             intent.putExtra(KEEP_TYPE, type.toString())
             context.startActivity(intent)
         }
+
+
+
+        fun startWebView2(context: Context, url: String, type: KeepTypeMenu,clsName: String) {
+
+            val cn = ComponentName(context.packageName, clsName)
+            val intent = Intent()
+            intent.setComponent(cn)
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+
+            intent.putExtra(URL, url)
+            intent.putExtra(KEEP_TYPE, type.toString())
+            context.startActivity(intent)
+        }
+
 
 
         /**
@@ -168,7 +191,6 @@ class H5DozeAliveGuideFragment : Fragment() {
             KeepCompactUtil.daemonSet(requireActivity())
         }
     }
-
 
 
     enum class KeepTypeMenu {

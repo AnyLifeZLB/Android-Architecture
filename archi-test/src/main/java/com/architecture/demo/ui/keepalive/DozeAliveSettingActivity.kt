@@ -10,12 +10,15 @@ import com.architecture.demo.R
  * 用Fragment 便于封装引用
  *
  */
-class KeepAliveSettingActivity : BaseActivity() {
+class DozeAliveSettingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_keep_alive_setting)
 
         setActivityTitle("App 运行权限管理",findViewById(R.id.toolbar))
+
+
+        intent.getStringExtra("CLSNAME")
     }
 
 

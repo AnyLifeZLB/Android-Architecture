@@ -7,21 +7,21 @@ import com.anylife.keepalive.R
 import com.anylife.keepalive.h5.H5DozeAliveGuideFragment
 import com.anylife.keepalive.utils.KeepCompactUtil
 import com.architecture.baseUI.BaseActivity
-import com.architecture.demo.databinding.ActivityH5KeepAliveGuideBinding
+import com.architecture.demo.databinding.ActivityH5DozealiveGuideBinding
 
 /**
  * H5 引导
  *
  */
 open class H5DozeAliveGuideActivity : BaseActivity(),H5DozeAliveGuideFragment.FragmentListener {
-    private lateinit var binding: ActivityH5KeepAliveGuideBinding
+    private lateinit var binding: ActivityH5DozealiveGuideBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityH5KeepAliveGuideBinding.inflate(layoutInflater)
+        binding = ActivityH5DozealiveGuideBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setActivityTitle("App 运行权限管理", findViewById(R.id.toolbar))
+        setActivityTitle("App 运行权限管理", binding.toolbar)
 
 
         val h5GuideFragment= H5DozeAliveGuideFragment.newInstance("")
@@ -34,9 +34,12 @@ open class H5DozeAliveGuideActivity : BaseActivity(),H5DozeAliveGuideFragment.Fr
             h5GuideFragment.goSetting()
         }
 
+
+        val keepType=intent.getStringExtra(H5DozeAliveGuideFragment.KEEP_TYPE).toString()
+
         //华为特殊处理
         if(KeepCompactUtil.deviceEnum.toString()== KeepCompactUtil.PhoneBrandEnum.Huawei.toString()){
-            if(h5GuideFragment.keepType == H5DozeAliveGuideFragment.KeepTypeMenu.daemon.toString()){
+            if(keepType == H5DozeAliveGuideFragment.KeepTypeMenu.daemon.toString()){
                 binding.goSetting.visibility= View.INVISIBLE
             }
         }

@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -79,7 +80,7 @@ class DozeAliveService : Service() {
             val time = (System.currentTimeMillis() - startServiceTime) / 1000L
             Log.e(
                 DozeWakeUpManger.TAG,
-                "唤醒CPU定时任务执行时间：${time}"
+                "唤醒 dozeWakePMUp：${time}"
             )
         }, 1 * 10000L)
 
@@ -100,7 +101,7 @@ class DozeAliveService : Service() {
      * 停止保活服务
      *
      */
-    fun onStop(){
+    fun onStop() {
 
     }
 
@@ -115,22 +116,21 @@ class DozeAliveService : Service() {
 }
 
 
-
-
-
-
-
-
 /**
  * 显示前台通知,当是否存活的标识
  *
  */
 @RequiresApi(Build.VERSION_CODES.O)
 fun Context.showForegroundNotification(forUpdate: Boolean = false) {
+
+    //目前只要小米 华为跳转
+
     val notificationManager = getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager
 
     val clickIntent = Intent("com.common.dozealive.ACTION_START")
     clickIntent.addCategory("com.common.dozealive.MY_CATEGORY")
+    clickIntent.addCategory("android.intent.category.DEFAULT")
+
 
     clickIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
 
@@ -151,10 +151,10 @@ fun Context.showForegroundNotification(forUpdate: Boolean = false) {
     notificationManager.createNotificationChannel(channel)
 
     val builder = NotificationCompat.Builder(this, packageName)
-    val appName = AppUtils.getAppName(applicationContext )
+    val appName = AppUtils.getAppName(applicationContext)
 
     builder.setContentTitle(appName)
-        .setContentText(appName+"运行中...")
+        .setContentText(appName + "运行中...")
         .setChannelId(packageName)
         .setWhen(System.currentTimeMillis())
         .setPriority(NotificationCompat.PRIORITY_LOW)

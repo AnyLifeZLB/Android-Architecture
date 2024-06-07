@@ -16,7 +16,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.architecture.demo.ui.archi.MainActivity
-import com.architecture.demo.ui.keepalive.KeepAliveSettingActivity
+import com.architecture.demo.ui.keepalive.DozeAliveSettingActivity
+import com.architecture.demo.ui.keepalive.H5DozeAliveGuideActivity
 
 /**
  * Compose 编程
@@ -42,8 +43,10 @@ fun MainActivityScreen(viewModel: NaviActivityScreenViewModel) {
 
         //应用保活设置
         Button(onClick = {
-            val intent = Intent(context, KeepAliveSettingActivity::class.java)
+            val intent = Intent(context, DozeAliveSettingActivity::class.java)
+            intent.putExtra("CLSNAME",H5DozeAliveGuideActivity::class.java.name)
             context.startActivity(intent)
+
         }, modifier = Modifier.padding(20.dp).fillMaxWidth()){
             Text(text = "应用保活权限设置", fontSize = 16.sp, color = Color.Green)
         }

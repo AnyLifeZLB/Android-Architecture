@@ -28,7 +28,6 @@
 
 
 
-
     <LinearLayout
         android:id="@+id/go_setting_layout"
         android:layout_width="match_parent"

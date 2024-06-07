@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.anylife.keepalive.R
 import com.anylife.keepalive.databinding.FragmentKeepAliveSettingBinding
 import com.anylife.keepalive.h5.H5DozeAliveGuideFragment
+import com.anylife.keepalive.testhttp.TestActivity
 import com.anylife.keepalive.utils.BatteryOptimization
 import com.anylife.keepalive.utils.KeepCompactUtil
 
@@ -70,17 +71,20 @@ class DozeAliveSettingFragment : Fragment() {
             }
         })
 
+        val clsName=requireActivity().intent.getStringExtra("CLSNAME")
 
         binding.keepAliveBackgroundSet.setOnClickListener {
-            H5DozeAliveGuideFragment.Companion.startWebView(requireContext(),getURLPath(
+            H5DozeAliveGuideFragment.Companion.startWebView2(requireContext(),getURLPath(
                 H5DozeAliveGuideFragment.KeepTypeMenu.daemon,deviceName),
-                H5DozeAliveGuideFragment.KeepTypeMenu.daemon)
+                H5DozeAliveGuideFragment.KeepTypeMenu.daemon,
+                clsName!!)
         }
 
         binding.batterySetBackgroundSet.setOnClickListener {
-            H5DozeAliveGuideFragment.Companion.startWebView(requireContext(),getURLPath(
+            H5DozeAliveGuideFragment.Companion.startWebView2(requireContext(),getURLPath(
                 H5DozeAliveGuideFragment.KeepTypeMenu.battery,deviceName),
-                H5DozeAliveGuideFragment.KeepTypeMenu.battery)
+                H5DozeAliveGuideFragment.KeepTypeMenu.battery,
+                clsName!!)
         }
 
 

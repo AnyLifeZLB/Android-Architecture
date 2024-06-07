@@ -37,7 +37,7 @@
 
 
         <activity
-            android:name=".ui.keepalive.KeepAliveSettingActivity"
+            android:name=".ui.keepalive.DozeAliveSettingActivity"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.common.dozealive.ACTION_START"/>
@@ -52,8 +52,9 @@
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.common.dozealive.ACTION_H5_GUIDE"/>
-                <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="com.common.dozealive.GUIDE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
             </intent-filter>
         </activity>
 
